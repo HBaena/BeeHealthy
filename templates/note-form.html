@@ -1,0 +1,56 @@
+<div class="modal" id="note-form" style="height: 100%;">
+    <div class="modal-content" style="height: 100%;">
+        <div class="row">
+          <div class="col s10" align="center"><h3>Note - Reminder</h3></div>
+          <div class="col s2"><i class="modal-close material-icons medium right">close</i></div>
+        </div>
+
+<div class="input-field col s12">
+    <i class="material-icons prefix">description</i>
+    <textarea id="note-content" class="materialize-textarea"></textarea>
+    <label for="note-content" data-error="wrong" data-success="succes">Content</label>
+</div>
+        <div class="col s12" style="padding-top: 20px;"> 
+          <i class="material-icons">grade</i> Priority
+          <label>
+            <input name="note-priority" id="note-priority" type="radio" value="high">
+            <span>
+              High
+            </span>
+          </label>
+          <label>
+            <input name="note-priority" id="note-priority" type="radio" value="medium" />
+            <span>Medium</span>
+          </label>
+          <label>
+            <input class="with-gap" name="note-priority" id="note-priority" type="radio" value="low" checked="" />
+            <span>Low</span>
+          </label>
+    </div>
+<div class="row">
+  <div class="input-field col s4  m3 offset-m1 4 offset-4">
+    <i class="material-icons">school</i>
+    Activity
+    <select id="activity-note">
+    <option value="" disabled selected>No activity</option>
+    {% if activities != None %}
+            {% for activity in activities %}
+                <option value="{{activity.title}}">{{activity.title}}</option>
+            {% endfor %}
+    {% endif %}
+    </select>
+  </div>
+
+  <div class="input-field col s4  m3 offset-m1 4 offset-4">
+    <i class="material-icons">today</i>
+    Delivery Day
+    <div class="card-reveal">
+    <input id="due-date-note" class="datepicker" style="width: 100%">
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+    <a onclick="done_Reminder()" class="waves-effect waves-red btn-flat red white-text">DONE</a>
+</div> 
+</div>
+</div>

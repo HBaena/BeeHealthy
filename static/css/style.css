@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+html,
+body {
+    height: 100%;
+}
+body {
+    background: #003754;
+}
+nav {
+    margin-top: 0px;
+    margin-bottom: 35px;
+}
+.nav{background: #001a33;}
+
+
+.buttons
+{
+    background: #001a33;
+}   
+.form-page {
+   width: 430px;
+}
+.home-page {
+    width: 90%;
+    /*padding: 100px;    */
+}
+.image-error {
+    width: 70%;
+    padding: 40px 0px 40px 0px;    
+    /*height: */
+}
+.card-panel {
+    margin: auto;
+    /*padding: 100px;    */
+}
+.header{
+    font-family: 'Montserrat', sans-serif;
+    display: table-cell;
+    vertical-align: middle;
+}
+.button {
+    font: roboto;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 85%;
+    border-radius: 5px;
+    background: #003754;
+
+}
+.button:hover {
+    background: #001a33;
+}
+
+.about-cards{
+    width: 27%;
+    height: 450px;
+    margin: 3.16%;
+    padding: 40px; 
+    align-items: center;
+}
+.card.horizontal {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.reminder{
+    width: 100%;
+    border-style: none;
+}
+.collapsible-body{
+    padding: 15px;
+    border-style: none;
+}
+.collapsible{
+    border-style: none;
+}
+.modal-profile {
+border-style: none;
+  margin-left: 180px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 200px;
+}
+.schedule{
+    border-radius: 20px;
+}
+.backdrop{
+   background-color: #272525;
+   opacity: 20%;
+ 
+} 
+/*[type="radio"]:not(:checked), [type="radio"]:checked {
+    position: relative;
+    left: 0px;
+    opacity: 1;
+}
+*/

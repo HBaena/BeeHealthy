@@ -1,0 +1,265 @@
+    <div class="modal modal-fixed-footer" id="activity-form">
+        <div class="modal-content" style="">
+        <div class="row">
+          <div class="col s10" align="center"><h3>Activities</h3></div>
+          <div class="col s2"><i class="modal-close material-icons medium right">close</i></div>
+        </div>
+      <div class="divider"></div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">assignment</i>
+                <input type="text" class="validate" minlength="3" name="activity-title" id="activity-title">
+                <label for="activity-title" data-error="wrong" data-success="succes">Activity name</label>
+          </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">assignment</i>
+                <input type="text" class="validate" minlength="3" name="activity-description" id="activity-description">
+                <label for="activity-description" data-error="wrong" data-success="succes">Activity description</label>
+          </div>
+      <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">location_on</i>
+                    <input type="text" class="validate" minlength="3" name="activity-location" id="activity-location">
+                    <label for="activity-location" data-erro="wrong" data-success="succes">Location</label>
+                </div>
+
+        <div class="col s6" style="padding-top: 20px;"> 
+          <i class="material-icons">grade</i> Priority
+          <label>
+            <input name="activity-priority" id="activity-priority" type="radio" value="high">
+            <span>
+              High
+            </span>
+          </label>
+          <label>
+            <input name="activity-priority" id="activity-priority" type="radio" value="medium" />
+            <span>Medium</span>
+          </label>
+          <label>
+            <input class="with-gap" name="activity-priority" id="activity-priority" type="radio" value="low" checked="" />
+            <span>Low</span>
+          </label>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="input-field col s3">
+          <i class="material-icons">today</i>
+          Monday <select id="monday-hour">
+            <option value="None" disabled selected>Hour</option>
+            <option value="23:00">23:00 </option>
+            <option value="22:00">22:00 </option>
+            <option value="21:00">21:00 </option>
+            <option value="20:00">20:00 </option>
+            <option value="19:00">19:00 </option>
+            <option value="18:00">18:00 </option>
+            <option value="17:00">17:00 </option>
+            <option value="16:00">16:00 </option>
+            <option value="15:00">15:00 </option>
+            <option value="14:00">14:00 </option>
+            <option value="13:00">13:00 </option>
+            <option value="12:00">12:00 </option>
+            <option value="11:00">11:00 </option>
+            <option value="10:00">10:00 </option>
+            <option value="09:00">09:00 </option>
+            <option value="08:00">08:00 </option>
+            <option value="07:00">07:00 </option>
+            <option value="06:00">06:00 </option>
+            <option value="05:00">05:00 </option>
+            <option value="04:00">04:00 </option>
+            <option value="03:00">03:00 </option>
+            <option value="02:00">02:00 </option>
+            <option value="01:00">01:00 </option>
+            <option value="00:00">00:00 </option>
+          </select>
+        </div>
+        <div class="input-field col s2">
+          <i class="material-icons">access_time</i>
+          Duration
+          <select id="monday-duration">
+            <option value="1" selected>1 hour </option>
+            <option value="2">2 hours </option>
+            <option value="3">3 hours </option>
+            <option value="4">4 hours </option>
+            <option value="5">5 hours </option>
+          </select>
+        </div><div class="col s1"></div>
+        <div class="input-field col s3">
+          <i class="material-icons">today</i>
+          Tuesday
+          <select id="tuesday-hour">
+            <option value="None" disabled selected>Hour</option>
+            <option value="23:00">23:00 </option>
+            <option value="22:00">22:00 </option>
+            <option value="21:00">21:00 </option>
+            <option value="20:00">20:00 </option>
+            <option value="19:00">19:00 </option>
+            <option value="18:00">18:00 </option>
+            <option value="17:00">17:00 </option>
+            <option value="16:00">16:00 </option>
+            <option value="15:00">15:00 </option>
+            <option value="14:00">14:00 </option>
+            <option value="13:00">13:00 </option>
+            <option value="12:00">12:00 </option>
+            <option value="11:00">11:00 </option>
+            <option value="10:00">10:00 </option>
+            <option value="09:00">09:00 </option>
+            <option value="08:00">08:00 </option>
+            <option value="07:00">07:00 </option>
+            <option value="06:00">06:00 </option>
+            <option value="05:00">05:00 </option>
+            <option value="04:00">04:00 </option>
+            <option value="03:00">03:00 </option>
+            <option value="02:00">02:00 </option>
+            <option value="01:00">01:00 </option>
+            <option value="00:00">00:00 </option>
+          </select>
+        </div>
+        <div class="input-field col s2">
+          <i class="material-icons">access_time</i>
+          Duration
+          <select id="tuesday-duration">
+            <option value="1" selected>1 hour </option>
+            <option value="2">2 hours </option>
+            <option value="3">3 hours </option>
+            <option value="4">4 hours </option>
+            <option value="5">5 hours </option>
+          </select>
+        </div>
+      </div>      
+      <div class="row">
+        <div class="input-field col s3">
+          <i class="material-icons">today</i>
+          Wednesday <select id="wednesday-hour">
+            <option value="None" disabled selected>Hour</option>
+            <option value="23:00">23:00 </option>
+            <option value="22:00">22:00 </option>
+            <option value="21:00">21:00 </option>
+            <option value="20:00">20:00 </option>
+            <option value="19:00">19:00 </option>
+            <option value="18:00">18:00 </option>
+            <option value="17:00">17:00 </option>
+            <option value="16:00">16:00 </option>
+            <option value="15:00">15:00 </option>
+            <option value="14:00">14:00 </option>
+            <option value="13:00">13:00 </option>
+            <option value="12:00">12:00 </option>
+            <option value="11:00">11:00 </option>
+            <option value="10:00">10:00 </option>
+            <option value="09:00">09:00 </option>
+            <option value="08:00">08:00 </option>
+            <option value="07:00">07:00 </option>
+            <option value="06:00">06:00 </option>
+            <option value="05:00">05:00 </option>
+            <option value="04:00">04:00 </option>
+            <option value="03:00">03:00 </option>
+            <option value="02:00">02:00 </option>
+            <option value="01:00">01:00 </option>
+            <option value="00:00">00:00 </option>
+          </select>
+        </div>
+        <div class="input-field col s2">
+          <i class="material-icons">access_time</i>
+          Duration
+          <select id="wednesday-duration">
+            <option value="1" selected>1 hour </option>
+            <option value="2">2 hours </option>
+            <option value="3">3 hours </option>
+            <option value="4">4 hours </option>
+            <option value="5">5 hours </option>
+          </select>
+        </div><div class="col s1"></div>
+        <div class="input-field col s3">
+          <i class="material-icons">today</i>
+          Thursday
+          <select id="thursday-hour">
+            <option value="None" disabled selected>Hour</option>
+            <option value="23:00">23:00 </option>
+            <option value="22:00">22:00 </option>
+            <option value="21:00">21:00 </option>
+            <option value="20:00">20:00 </option>
+            <option value="19:00">19:00 </option>
+            <option value="18:00">18:00 </option>
+            <option value="17:00">17:00 </option>
+            <option value="16:00">16:00 </option>
+            <option value="15:00">15:00 </option>
+            <option value="14:00">14:00 </option>
+            <option value="13:00">13:00 </option>
+            <option value="12:00">12:00 </option>
+            <option value="11:00">11:00 </option>
+            <option value="10:00">10:00 </option>
+            <option value="09:00">09:00 </option>
+            <option value="08:00">08:00 </option>
+            <option value="07:00">07:00 </option>
+            <option value="06:00">06:00 </option>
+            <option value="05:00">05:00 </option>
+            <option value="04:00">04:00 </option>
+            <option value="03:00">03:00 </option>
+            <option value="02:00">02:00 </option>
+            <option value="01:00">01:00 </option>
+            <option value="00:00">00:00 </option>
+          </select>
+        </div>
+        <div class="input-field col s2">
+          <i class="material-icons">access_time</i>
+          Duration
+          <select id="thursday-duration">
+            <option value="1" selected>1 hour </option>
+            <option value="2">2 hours </option>
+            <option value="3">3 hours </option>
+            <option value="4">4 hours </option>
+            <option value="5">5 hours </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s3">
+          <i class="material-icons">today</i>
+          Friday <select id="friday-hour">
+            <option value="None" disabled selected>Hour</option>
+            <option value="23:00">23:00 </option>
+            <option value="22:00">22:00 </option>
+            <option value="21:00">21:00 </option>
+            <option value="20:00">20:00 </option>
+            <option value="19:00">19:00 </option>
+            <option value="18:00">18:00 </option>
+            <option value="17:00">17:00 </option>
+            <option value="16:00">16:00 </option>
+            <option value="15:00">15:00 </option>
+            <option value="14:00">14:00 </option>
+            <option value="13:00">13:00 </option>
+            <option value="12:00">12:00 </option>
+            <option value="11:00">11:00 </option>
+            <option value="10:00">10:00 </option>
+            <option value="09:00">09:00 </option>
+            <option value="08:00">08:00 </option>
+            <option value="07:00">07:00 </option>
+            <option value="06:00">06:00 </option>
+            <option value="05:00">05:00 </option>
+            <option value="04:00">04:00 </option>
+            <option value="03:00">03:00 </option>
+            <option value="02:00">02:00 </option>
+            <option value="01:00">01:00 </option>
+            <option value="00:00">00:00 </option>
+          </select>
+        </div>
+        <div class="input-field col s2">
+          <i class="material-icons">access_time</i>
+          Duration
+          <select id="friday-duration">
+            <option value="1" selected>1 hour </option>
+            <option value="2">2 hours </option>
+            <option value="3">3 hours </option>
+            <option value="4">4 hours </option>
+            <option value="5">5 hours </option>
+          </select>
+        </div><div class="col s2"></div>
+<!--         <div class="col s2" style="margin-top: 30px">
+          <a class="btn-floating btn-large red" onclick="add_activty()"> <i class="large material-icons">add</i></a>
+        </div> -->
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <a href="#" onclick="done_activity()" class="waves-effect waves-red btn-flat red white-text">DONE</a>
+    </div>   
+   </div>

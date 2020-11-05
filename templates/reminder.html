@@ -1,0 +1,35 @@
+{# BEGIN REMINDER #}
+<li>
+    <div class="collapsible-header {{ color_header }}" style="border-color: transparent;padding-top: 1px;">
+        <div class="col s2" style="padding-top:20px;">
+            <i class="material-icons large"> {{ icon_header }}</i> 
+        </div>
+        <div class="col s10">
+            <h5>{{ title_header }}</h5>
+        </div>
+    </div>
+    <div class="collapsible-body reminder-body {{ color_body }}">
+        <div class="divider"></div>
+        <p class="flow-text" style="font-size: 22px;"> {{ note.content }} </p>
+        <div class="footer-copyright" style="padding-bottom: 35px;opacity: 1;">
+            <div class="col s3"><strong>Priority: </strong></div>
+            <div class="col s2">{{ note.priority }}</div>
+            <div class="col s3"><strong>Activity: </strong></div>
+            <div class="col s4">{{ activity[:12] }} ... </div>
+            <div class="col s3"><strong>Creation: </strong></div>
+            <div class="col s2">{{ note.creation_date.strftime('%m-%d-%y') }}</div>
+            <div class="col s3"><strong>Due date: </strong></div>
+            {% if note.due_date == None or note.due_date == 'NULL' %}
+            <div class="col s2">Never</div>
+            {% else %}
+            <div class="col s2">{{ note.due_date.strftime('%m-%d-%y') }}</div>
+            {% endif %}
+            <div class="col s2">
+              <a onclick="deleteNote('{{ note.note_id }}')" class="btn-floating red"><i class="material-icons">delete</i></a>
+            </div>
+        </div>
+
+    </div>
+  </li>
+
+{# END REMINDER #}

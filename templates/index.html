@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ title }}</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script src="https://codepen.io/j_holtslander/pen/pLNzQb"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style-schedule.css') }}">
+</head>
+<body>
+{% include "nav.html" %}
+{% include "carousel.html"%}
+  <div class="row" align="center">    
+    <div class="col z-depth-2 card-panel small about-cards" align="center">
+      <div class="row s12" align="center">
+        <i class="large material-icons">school</i>
+      </div>
+      <h3 class="">School</h3>
+      <p class="flow-text">Most teachers will give students a syllabus that may or may not list the due dates of some projects. Whenever you know a date ahead of time, it is a good idea to have a planner. </p>
+    </div>
+
+    <div class="col z-depth-2 card-panel small about-cards" align="center">
+      <div class="row s12" align="center">
+        <i class="large material-icons">access_alarm</i>
+      </div>
+      <h3 class="">Reminders</h3>
+      <p class="flow-text"> No matter how well you set up your todo list and calendar, you aren’t going to get things done unless you have a reliable way of reminding yourself to actually do them. </p>
+    </div>
+
+    <div class="col z-depth-2 card-panel small about-cards" align="center">
+      <div class="row s12" align="center">
+        <i class="large material-icons">schedule</i>
+      </div>
+      <h3 class="">Schedule</h3>
+      <p class="flow-text">Scheduling is the art of planning your activities so that you can achieve your goals and priorities in the time you have available. When it's done effectively.</p>
+    </div>
+
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.modal').modal({
+     
+          dismissible: false, // Modal cannot be closed by clicking anywhere outside
+     
+        });  
+      $('.carousel').carousel(
+      {
+        dist: 0,
+        padding: 0,
+        fullWidth: true,
+        indicators: true,
+        duration: 100,
+      });});
+      function openModalOwn(id_modal) {
+          $('#'+id_modal).modal('open');}
+      autoplay()   
+      function autoplay() {
+        $('.carousel').carousel('next');
+        setTimeout(autoplay, 4500);}
+  </script>
+</body>
+</html> 

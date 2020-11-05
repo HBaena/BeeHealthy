@@ -1,0 +1,82 @@
+html,
+
+body {
+    height: 100%;
+    background: #003754;
+}
+
+.calendar
+{
+    padding: 15px;
+    padding-left: 20px;
+    padding-bottom: -20px;
+
+    width: 85%;
+}
+.activity-trigger
+{
+  width: 50px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 3px;
+  color: white;
+  margin: auto;
+}
+.modal
+{
+  padding-bottom: 10px; 
+}
+.calendar__week,
+.calendar__header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);  
+}
+.calendar__header {
+  grid-auto-rows: 50px;
+  align-items: center;
+  text-align: center;
+}
+.calendar__header > div {
+  text-transform: uppercase;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.calendar__day {
+  min-height: 80px;  
+  max-height: 80px;
+  padding: 16px;
+  margin:-10px;
+}
+.calendar__day {
+  margin:-12px;
+  border-left: 1px solid #e1e1e1;
+  border-top: 1px solid #e1e1e1;  
+}
+.friday{
+  min-height: 80px;  
+  max-height: 80px;
+  margin:-12px;
+  border-left: 1px solid #e1e1e1;
+  border-right: 1px solid #e1e1e1;
+  border-top: 1px solid #e1e1e1;      
+}
+.hours{
+    min-height: 80px;  
+    max-height: 80px;
+    width: 10px;
+    padding: 16px;
+    margin:-12px;
+    height: 50%;  
+    border-left: px solid #e1e1e1;
+    border-right: 0px solid #e1e1e1;
+    border-top: 0px solid #e1e1e1;      
+    font-style: bold;
+    font-size: 16px;
+    /*background: black;*/
+
+}
+.calendar__day:last-child {
+  border-right: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;  
+}

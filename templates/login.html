@@ -1,0 +1,40 @@
+{% extends "base-materialize.html" %}
+{% block content %}
+{% include "nav.html" %}
+<div class="row form-page">
+    <div class="col s12 z-depth-6 card-panel">
+      <form class="login-form" method="POST">
+        <div class="row">
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">mail_outline</i>
+            <input class="validate" name="email" id="email" type="email">
+            <label for="email" data-error="wrong" data-success="right">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock_outline</i>
+            <input name="password" id="password" type="password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row" align="center">
+          <!-- <button type="button" class="button" value="LOGIN">         -->
+          <button class="button">LOGIN</button>
+        </div>
+        <div class="row">
+          <div class="input-field col s6 m6 l6" >
+            <p class="margin medium-small "><a href="{{ url_for('register') }}">Register Now!</a></p>
+          </div>
+          <div class="input-field col s6 m6 l6">
+              <p class="margin right-align medium-small"><a href="#">Forgot password?</a></p>
+          </div>          
+        </div>
+
+      </form>
+    </div>
+  </div>
+ -->
+{% endblock %}

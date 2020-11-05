@@ -1,0 +1,21 @@
+<div id="modal-activity-{{ activity.activity_id }}" class="modal modal-fixed-footer">
+  <div class="modal-content">
+      <div class="row">
+        <div class="col s10"><h2>{{ activity.title }}</h2></div>
+        <div class="col s2"><i class="modal-close material-icons medium right">close</i></div>
+      </div>
+      <div class="row">
+            <div class="col s2"><i class="material-icons medium">assignment</i></div>
+            <div class="col s10 flow-text"><p class="flow-text">{{ activity.description }}</p></div>
+      </div>
+      <div class="row">          
+            <div class="col s2"><i class="material-icons medium">location_on</i></div>
+            <div class="col s4 flow-text"><h5>{{ activity.location }}</h5></div>
+            <div class="col s2"><i class="material-icons medium">grade</i></div>
+            <div class="col s4 flow-text"><h5>{{ activity.priority }} priority</h5></div>
+      </div>
+  </div>
+   <div class="modal-footer">
+      <a onclick="deleteActivity('{{ activity.title }}')" class="btn-floating red"><i class="material-icons">delete</i></a>
+  </div>
+</div>

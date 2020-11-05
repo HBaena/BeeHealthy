@@ -1,0 +1,107 @@
+{% extends "base-materialize.html" %}
+{% block content %}
+{% include "nav.html" %}
+{# BEGIN #}
+<div class="row" align="center">
+    <div class="col s4 offset-s4">
+      <div class="card" style="width: 90%">
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator  responsive-img" src="{{url_for('static', filename='img/me-02.jpg')}}">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Designer<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Guadalupe Aguirre Zúñiga<i class="material-icons right">close</i></span>
+              <p>Carolina was in charge of designing the frontend using <a href="https://materializecss.com/">Materialize</a> and JQuery.</p>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{# END #}
+{# BEGIN #}
+<div class="row" align="center">
+    <div class="col s4 offset-s4">
+      <div class="card" style="width: 90%">
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator  responsive-img" src="{{url_for('static', filename='img/me-04.jpg')}}">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Python developer<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Adán H Baena<i class="material-icons right">close</i></span>
+              <p>This websaite was developed from scratch, both frontend and backend. Baena was who used <a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/">Flask</a> and Jinja2 to shape this app. </p>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{# END #}
+{# BEGIN #}
+<div class="row" align="center">
+    <div class="col s4 offset-s4">
+      <div class="card" style="width: 90%">
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator  responsive-img" src="{{url_for('static', filename='img/me-03.jpg')}}">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">JS developer<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Emmanuel Gallardo<i class="material-icons right">close</i></span>
+              <p>The deploy and depuration was made by him. Implementation of frontend functionality, using <a href="https://jquery.com/">JQuery</a> was developed by Mago.</p>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{# END #}
+{# BEGIN #}
+<div class="row" align="center">
+    <div class="col s4 offset-s4">
+      <div class="card" style="width: 90%">
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator  responsive-img" src="{{url_for('static', filename='img/me-01.png')}}">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Analist<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Mosiés Montes Villanueva<i class="material-icons right">close</i></span>
+              <p>The databases were in the hands of Moisés. The design and its implementation in <a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/">SQLAlchemy</a> where made by him.</p>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{# END #}
+{# BEGIN #}
+<div class="row" align="center">
+    <div class="col s4 offset-s4">
+      <div class="card" style="width: 90%">
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator  responsive-img" src="{{url_for('static', filename='img/me-01.jpg')}}">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">CEO<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Adán H Baena<i class="material-icons right">close</i></span>
+              <p>A leader and a partner. Baena was in charge of coordinating all these talents to work together and, thus, develop this school app.</p>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{# END #}
+
+
+{% include "modals-init.html" %}
+{% endblock %}  
