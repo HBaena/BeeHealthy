@@ -95,21 +95,9 @@ class Model:
                                 lastname=lastname, phone=phone,))
 
     def read_user(self, username=None, email=None):
-        if username:
-            response = self.__session.query(User).filter(
-                User.username == username).first()
-            if response:
-                return response
-            else:
-                return InfoCodes.ERROR
-        elif email:
-            response = self.__session.query(User).filter(
-                User.email == email).first()
-            if response:
-                return response
-            else:
-                return InfoCodes.ERROR
-        return InfoCodes.ERROR
+        return self.__session.query(User).filter(
+                (User.username == username) | (User.email == username)).first()
+
 
     def read_users(self):
         return self.__session.query(User).all()
@@ -245,7 +233,7 @@ class Activity(db.Model):
     activity_id = db.Column(db.Integer, nullable=True, primary_key=True)
     description = db.Column(db.String(300), nullable=False)
     title = db.Column(db.String(30), nullable=False)
-    priority = db.Column(db.Integer, nullable=False)
+    priority = db.Column(db.String(10), nullable=False)
     location = db.Column(db.String(50), nullable=False)
     username = db.Column(db.String(30), db.ForeignKey(
         'User.username'), nullable=False)

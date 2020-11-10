@@ -161,7 +161,7 @@ def login():
             if response == InfoCodes.WRONG_PASSWORD:
                 return render_this_page('login.html', 'LOGIN')
             if response == InfoCodes.SUCCESS:
-                session['username'] = controller.get_username(email)
+                session['username'] = controller.get_username(email).username
                 return redirect(url_for('home'))
 
     return render_this_page('login.html', 'LOGIN')

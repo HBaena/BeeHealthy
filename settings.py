@@ -5,8 +5,8 @@ from os import getcwd, environ
 
 db_name = 'beeplanner.db'
 app = Flask(__name__)
-# uri = 'sqlite:///{}/{}'.format(abspath(getcwd()), db_name)
-uri = environ['DATABASE_URL']
+uri = 'sqlite:///{}/{}'.format(abspath(getcwd()), db_name)
+# uri = environ['DATABASE_URL']
 # uri = f'sqlite:///{abspath(getcwd())}/{db_name}'
 app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

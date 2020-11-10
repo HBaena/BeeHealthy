@@ -21,6 +21,8 @@ class Controller:
         return self.model.verify_user(token, password)
 
     def add_user(self, username, email, password, name, lastname, phone):
+        # if self.model.read_user(username=username) or \
+        #         self.model.read_user(email=email):
         if self.model.read_user(username=username) or \
                 self.model.read_user(email=email):
             return InfoCodes.USER_ALREADY_EXIST
@@ -28,10 +30,11 @@ class Controller:
                                name, lastname, phone)
         return InfoCodes.SUCCESS
     def get_user(self, username):
-        return self.model.read_user(username=username)
+        return self.model.read_user(username)
 
     def get_username(self, email):
-        return self.model.read_user(email=email).username
+        return self.model.read_user(email)
+
 
     def get_all_users(self):
         return self.model.read_users()
