@@ -193,10 +193,17 @@ def register():
                 return redirect(url_for('home'))
     return render_this_page('register.html', 'REGISTER')
 
+@app.route('/patient', methods=['GET', 'POST'])
+def patient():
+    if request.method == 'GET':
+        return render_this_page('patient.html', 'PATIENT')
+    else:
+        return render_this_page('appointments.html', 'APPOINTMENTS', id=request.form['id'])
 
-@app.route('/schedule')
-def schedule():
-    return render_template('schedule.html')
+
+# @app.route('/schedule')
+# def schedule():
+#     return render_template('schedule.html')
 
 
 @app.route('/logout')

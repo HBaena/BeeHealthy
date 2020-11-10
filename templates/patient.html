@@ -8,22 +8,16 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <i class="material-icons prefix">mail_outline</i>
-            <input class="validate" name="email" id="email" type="text">
-            <label for="email" data-error="wrong" data-success="right">Email</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">lock_outline</i>
-            <input name="password" id="password" type="password">
-            <label for="password">Password</label>
+            <i class="material-icons prefix">search</i>
+            <input class="validate" name="id" id="id" type="text">
+            <label for="id" data-error="wrong" data-success="right">Patient id</label>
           </div>
         </div>
         <div class="row" align="center">
           <!-- <button type="button" class="button" value="LOGIN">         -->
-          <button class="button">LOGIN</button>
+          <button class="button">Search</button>
         </div>
+        
         <div class="row">
           <div class="input-field col s6 m6 l6" >
             <p class="margin medium-small "><a href="{{ url_for('register') }}">Register Now!</a></p>
