@@ -1,0 +1,56 @@
+{% extends "base-materialize.html" %}
+{% block content %}
+{% include "nav.html" %}
+<div class="row form-page">
+    <div class="col s12 z-depth-6 card-panel">
+      <form class="login-form" method="POST">
+        <div class="row">
+        </div>
+        
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">person</i>
+            <input class="validate" name="name" id="name" type="text">
+            <label for="name" data-error="wrong" data-success="right">Name</label>
+          </div>
+        </div>
+
+        <div class="col s5">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">phone</i>
+            <input class="validate" id="phone" name="phone" type="tel" minlength="10">
+            <label for="phone">Phone</label>
+          </div>
+        </div>
+
+        <div class="col s7">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">email_ooutline</i>
+            <input class="validate" id="email" name="email" type="email">
+            <label for="email">e-mail</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">help</i>
+            <textarea name="question" id="question" class="materialize-textarea"></textarea>
+          <label for="question">Contact question</label>
+          </div>
+        </div>
+        
+        <div class="row" align="center">
+          <!-- <button type="button" class="button" value="LOGIN">         -->
+          <button class="button">Contact</button>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m12 l12" >
+            <p class="margin medium-small ">For mor benefits, <a href="{{ url_for('register') }}">Register Now!</a></p>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

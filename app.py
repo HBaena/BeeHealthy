@@ -31,6 +31,14 @@ def define_notes():
     else:
         return None
 
+def define_contacts():
+    response = controller.get_contacts()
+    if response:
+        return zip(response,
+                   [get_random_color() for _ in range(len(response))])
+    else:
+        return None
+
 
 def define_schedule():
     activities = controller.get_activities(session['username'])
@@ -128,6 +136,7 @@ def test():
 @app.route('/index')
 def index():
     print(controller.get_all_users())
+    print(controller.get_contacts())
     return render_this_page('index.html', 'BeePlanner')
 
 # @app.route('/')
@@ -136,11 +145,10 @@ def index():
 @app.route('/home')
 # @logged_args
 def home():
-    notes = None
     if 'username' in session:
         activities, days, init, end = define_schedule()
-        notes = define_notes()
-        return render_this_page('home.html', 'HOME', notes=notes,
+        contacts = define_contacts()
+        return render_this_page('home.html', 'HOME', contacts=contacts,
                                 activities=activities,
                                 days=days, init=init, end=end)
     else:
@@ -200,6 +208,22 @@ def patient():
     else:
         return render_this_page('appointments.html', 'APPOINTMENTS', id=request.form['id'])
 
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    # print('hello')
+    if request.method == 'GET':
+        return render_this_page('contact.html', 'CONTACT')
+    else:
+        # print(request.form)
+        # print('hello')
+        
+        controller.request_contact(request.form['name'], request.form['phone'], 
+            request.form['email'], request.form['question'])
+        controller.save()
+        return render_this_page('thanks.html', 'CONTACT')
+
+        # return render_this_page('appointments.html', 'APPOINTMENTS', id=request.form['id'])
+
 
 # @app.route('/schedule')
 # def schedule():
@@ -252,6 +276,16 @@ def remove_activity(title):
 
     return render_template('404.html'), 404
 
+@app.route('/contact/remove/<string:title>')
+def remove_contact(title):
+    # print('Hello')
+    if 'username' in session:
+        if controller.remove_contact(title) == InfoCodes.SUCCESS:
+            controller.save()
+            return redirect(url_for('home'))
+
+    return render_this_page('404.html', '404'), 404
+
 
 @app.route('/note/remove/<int:id>')
 def remove_note(id):
@@ -260,7 +294,7 @@ def remove_note(id):
             controller.save()
             return redirect(url_for('home'))
 
-    return render_template('404.html'), 404
+    return render_this_page('404.html', '404'), 404
 
 
 @app.route('/note/<string:content>/<string:priority>/<string:due_date>/<string:title>')

@@ -1,0 +1,27 @@
+
+
+{# BEGIN REMINDER #}
+<li>
+    <div class="collapsible-header {{ color_header }}" style="border-color: transparent;padding-top: 1px;">
+        <div class="col s2" style="padding-top:20px;">
+            <i class="material-icons large"> help_outline </i> 
+        </div>
+        <div class="col s10">
+            <h5>{{ title_header }}</h5>
+        </div>
+    </div>
+    <div class="collapsible-body reminder-body {{ color_body }}">
+        <div class="divider"></div>
+        <p class="flow-text" style="font-size: 22px;"> {{ contact.question }} </p>
+            <div class="footer-copyright" style="padding-bottom: 35px;opacity: 1;">
+                <div class="col s9">{{ contact.name }}, {{ contact.phone }} </div>
+                <div class="col s10">{{ contact.email }}</div>            
+                <div class="col s2">
+                    <a onclick="deleteNote('{{ contact.contact_id }}')" class="btn-floating red"><i class="material-icons">delete</i></a>
+                </div>
+            </div>
+
+    </div>
+  </li>
+
+{# END REMINDER #}

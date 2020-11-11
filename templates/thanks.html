@@ -1,0 +1,12 @@
+{% extends "base-materialize.html" %}
+{% block content %}
+{% include "nav.html" %}
+<div class="row centered">
+  <img href="{{url_for('index')}}" style="height: 10%;margin-top:10px;margin-right: 10px;text-align: center;" class="responsive-img center" src="{{ url_for('static', filename='img/thanks.png') }}">
+</div>
+
+<div class="row centered center">
+    <p class="margin medium-small "><a href="{{ url_for('index') }}">Go home!</a></p>
+</div>
+
+{% endblock %}

@@ -2,35 +2,32 @@
     {% block content %}
     {% include "nav.html" %}
     <div class="row home-page">
+<!--         # ---------------------------------------------
+        #           Contacts
+        # ---------------------------------------------
+ -->
+
         <div class="col s4">
             <div class="row s12" align="center">
               <h2 class="white-text">Reminders</h2>
             </div>
             <div class="row s12">
-                {% if notes != None %}
+                {% if contacts != None %}
                 <ul class="collapsible popout reminder transparent">
-                    {% for note, color, activity in notes %}
-                        {% set icon='child_care' %}
-                        {% if note.priority == 'high' %}
-                            {% set icon = 'report_problem' %}
-                        {% elif note.priority == 'medium' %}
-                            {% set icon = 'face' %}
-                        {% endif%} 
-
-                        {% with  icon_header=icon, title_header=note.content[:10]+ ' ...', color_header=color, color_body=color, note=note %}
-                            {% include 'reminder.html'%}
+                    {% for contact, color in contacts %}
+                        {% with title_header=contact.question[:15]+ ' ...', color_header=color, color_body=color, contact=contact %}
+                            {% include 'contacts.html'%}
                         {% endwith%}
                     {% endfor%}
                 </ul>
                 {% else %}
-                <div class="row" align="center">
-                <h2> No reminders</h2>
-                <i class="material-icons large">layers_clear</i>
-                </div>
-
+                    <div class="row" align="center">
+                    <h2> No contacts yet</h2>
+                    <i class="material-icons large">layers_clear</i>
+                    </div>
                 {% endif %}
 
-    </div>
+            </div>
         </div>
 
         <div class="col s8">

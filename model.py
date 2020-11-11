@@ -1,5 +1,11 @@
 from settings import db
 
+
+def send_email(email_in, email_out, text):
+    pass
+
+
+
 MODAL_COLORS = (
     ' lime',
     ' cyan darken-1',
@@ -85,14 +91,36 @@ class Model:
     def close_session(self):
         self.__session.close()
 
+
+
+    # ------------------------- #
+    #      CONTACT METHODS      #
+    # ------------------------- #
+    # 
+    def create_contact(self, name, phone, email, question):
+        self.__session.add(Contact(name=name, phone=phone, email=email, question=question))
+
+    def create_contact(self, name, phone, email, question):
+        self.__session.add(Contact(self, name=name, phone=phone, email=email, question=question))
+
+    def read_contact(self, contact_id):
+        return self.__session.query(Contact).filter(
+                Contact.contact_id == contact_id).first()
+
+    def read_contacts(self):
+        return self.__session.query(Contact).all()
+
+    def delete_contact(self, contact):
+        self.__session.delete(contact)
     # ------------------------- #
     #       USER METHODS        #
     # ------------------------- #
 
     def create_user(self, username, email, password, name, lastname, phone):
-        self.__session.add(User(username=username, email=email,
-                                password=password, name=name,
-                                lastname=lastname, phone=phone,))
+        self.__session.add(User(username=username, email=email, 
+                                password=password, name=name, 
+                                lastname=lastname, phone=phone, 
+                                ))
 
     def read_user(self, username=None, email=None):
         return self.__session.query(User).filter(
@@ -206,6 +234,10 @@ class Model:
     def delete_note(self, note):
         self.__session.delete(note)
 
+
+# DATABASE TABLES DEFINITION
+
+
 class User(db.Model):
     """docstring for User"""
 
@@ -282,4 +314,22 @@ class Schedule(db.Model):
             self.wednesday,
             self.thursday,
             self.friday
+            )
+
+
+class Contact(db.Model):
+    """docstring for Contact"""
+    __tablename__ = "Contact"
+    contact_id = db.Column(db.Integer , primary_key=True , autoincrement=True)
+    name = db.Column(db.String(30), nullable=True)
+    phone = db.Column(db.String(12), nullable=True)
+    email = db.Column(db.String(30), nullable=False)
+    question = db.Column(db.Text, nullable=False)
+
+    def __repr__(self):
+        return '{}, {}, {}, {}|'.format(
+            self.name,
+            self.phone,
+            self.email,
+            self.question,
             )

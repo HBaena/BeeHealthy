@@ -20,6 +20,20 @@ class Controller:
     def login(self, token, password):
         return self.model.verify_user(token, password)
 
+    # ------------------------- #
+    #       USER METHODS        #
+    # ------------------------- #
+    def request_contact(self, name, phone, email, question):
+        self.model.create_contact(name, phone, email, question)
+
+    def get_contacts(self):
+        return self.model.read_contacts()
+
+    def remove_contact(self, contact_id):
+        self.model.delete_contact(self.model.read_contact(contact_id))
+        return InfoCodes.SUCCESS
+
+
     def add_user(self, username, email, password, name, lastname, phone):
         # if self.model.read_user(username=username) or \
         #         self.model.read_user(email=email):
