@@ -100,9 +100,6 @@ class Model:
     def create_contact(self, name, phone, email, question):
         self.__session.add(Contact(name=name, phone=phone, email=email, question=question))
 
-    def create_contact(self, name, phone, email, question):
-        self.__session.add(Contact(self, name=name, phone=phone, email=email, question=question))
-
     def read_contact(self, contact_id):
         return self.__session.query(Contact).filter(
                 Contact.contact_id == contact_id).first()
@@ -116,11 +113,11 @@ class Model:
     #       USER METHODS        #
     # ------------------------- #
 
-    def create_user(self, username, email, password, name, lastname, phone):
-        self.__session.add(User(username=username, email=email, 
-                                password=password, name=name, 
-                                lastname=lastname, phone=phone, 
-                                ))
+    def create_user(self, username, email, password, name, lastname, phone, description, workplace, doctor):
+        self.__session.add(User(
+            username=username, email=email, password=password, 
+            name=name, lastname=lastname,phone=phone, 
+            description=description, workplace=workplace, doctor=doctor))
 
     def read_user(self, username=None, email=None):
         return self.__session.query(User).filter(
@@ -130,8 +127,8 @@ class Model:
     def read_users(self):
         return self.__session.query(User).all()
 
-    def update_user(self, user, username=None, email=None,
-                    password=None, name=None, lastname=None, phone=None):
+    def update_user(self, user, username=None, email=None, password=None, name=None, lastname=None, 
+                                phone=None, description=None, workplace=None, doctor=None):
         if not user:
             return False
         if username:
@@ -150,9 +147,15 @@ class Model:
             user.lastname = lastname
         if phone:
             user.phone = phone
+        if description:
+            user.description = description
+        if workplace:
+            user.workplace = workplace
+        if doctor:
+            user.doctor = doctor
+
 
         return user
-
     def delete_user(self, user):
         self.__session.delete(user)
 
@@ -238,83 +241,83 @@ class Model:
 # DATABASE TABLES DEFINITION
 
 
+
 class User(db.Model):
     """docstring for User"""
 
     __tablename__ = "User"
     username = db.Column(db.String(30), nullable=False, primary_key=True)
-    email = db.Column(db.String(30), nullable=False)
-    password = db.Column(db.String(64), nullable=False)
+    email = db.Column(db.String(30), nullable=True)
+    password = db.Column(db.String(10), nullable=False)
     name = db.Column(db.String(30), nullable=False)
     lastname = db.Column(db.String(30), nullable=False)
+    phone = db.Column(db.String(12), nullable=True)
+    description = db.Column(db.Text(length=None), nullable=False)
+    workplace = db.Column(db.String(20), nullable=True)
+    doctor = db.Column(db.Boolean(),nullable=True)
+    # db.relationship must      be in the parent table
+    appointment = db.relationship(
+        'Appointment', backref='User', cascade="all, delete-orphan")
+    
+
+    def __repr__(self):
+        return '{},{},{},{},{},{}'.format(self.username, self.email,
+                                          self.password, self.name,
+                                          self.lastname, self.phone,
+                                          self.description, self.workplace,
+                                          self.doctor)
+
+
+class Appointment(db.Model):
+    """docstring for Appointment"""
+
+    __tablename__ = "Appointment"
+    id_appointment = db.Column(db.Integer, nullable=False, primary_key=True)
+    date = db.Column(db.DateTime(), nullable=False)
+    description = db.Column(db.Text(length=None), nullable=False, )
+    weight = db.Column(db.Float(), nullable=False)
+    height = db.Column(db.Float(), nullable=False)
+    temperature = db.Column(db.Float(), nullable=False)
+    heart_rate = db.Column(db.Float(), nullable=False)
+    done = db.Column(db.Boolean(), nullable=False)
+    username = db.Column(db.String(30),db.ForeignKey(
+               'User.username'),nullable=False )
+    id_patient = db.Column(db.Integer,db.ForeignKey(
+               'Patient.id_patient'),nullable=False )
+    
+
+    def __repr__(self):
+        return '{},{},{},{},{},{},{}'.format(self.id_appointment, self.date,
+                                            self.description, self.weight,
+                                            self.height, self.temperature,
+                                            self.heart_rate, self.done,
+                                            self.username, self.id_patient)
+
+class Patient(db.Model):
+    """docstring for Patient"""
+
+    __tablename__ = "Patient"
+    id_patient = db.Column(db.Integer, nullable=True, primary_key=True)
+    name = db.Column(db.String(300), nullable=False)
+    lastname = db.Column(db.String(30), nullable=False)
     phone = db.Column(db.String(12), nullable=False)
+    gender = db.Column(db.Boolean(), nullable=False)
+    weight = db.Column(db.Float(), nullable=False)
+    height = db.Column(db.Float(), nullable=False)
+    temperature = db.Column(db.Float(), nullable=False)
+    heart_rate = db.Column(db.Float(), nullable=False)
     # db.relationship must      be in the parent table
-    activity = db.relationship(
-        'Activity', backref='User', cascade="all, delete-orphan")
-
+    appointment = db.relationship(
+        'Appointment', backref='Patient', cascade="all, delete-orphan")
+         
     def __repr__(self):
-        return '{},{},{},{},{}'.format(self.username,
-                                       self.password, self.email,
-                                       self.name, self.lastname)
+        return '{},{},{},{},{},{}'.format(self.id_patient, self.name,
+                                          self.lastname, self.phone,
+                                          self.gender, self.weight,
+                                          self.height, self.temperature,
+                                          self.heart_rate)
 
 
-class Activity(db.Model):
-    """docstring for Activity"""
-
-    __tablename__ = "Activity"
-    activity_id = db.Column(db.Integer, nullable=True, primary_key=True)
-    description = db.Column(db.String(300), nullable=False)
-    title = db.Column(db.String(30), nullable=False)
-    priority = db.Column(db.String(10), nullable=False)
-    location = db.Column(db.String(50), nullable=False)
-    username = db.Column(db.String(30), db.ForeignKey(
-        'User.username'), nullable=False)
-    # db.relationship must      be in the parent table
-    note = db.relationship('Note', backref='Activity',
-                           cascade="all, delete-orphan")
-    schedule = db.relationship(
-        'Schedule', backref='Activity', cascade="all, delete-orphan")
-
-    def __repr__(self):
-        return ('{}, {}, {}'.format(self.title, self.location, self.username))
-
-
-class Note(db.Model):
-    """docstring for Note"""
-
-    __tablename__ = "Note"
-    note_id = db.Column(db.Integer, nullable=False, primary_key=True)
-    content = db.Column(db.String(25), nullable=False)
-    priority = db.Column(db.String(30), nullable=False, )
-    due_date = db.Column(db.DateTime, nullable=True)
-    creation_date = db.Column(db.DateTime, nullable=False)
-    username = db.Column(db.String(30), db.ForeignKey(
-        'User.username'), nullable=False)
-    activity_id = db.Column(db.Integer, db.ForeignKey(
-        'Activity.activity_id'), nullable=False)
-
-
-class Schedule(db.Model):
-    """docstring for Schedule"""
-
-    __tablename__ = "Schedule"
-    schedule_id = db.Column(db.Integer, nullable=False, primary_key=True)
-    monday = db.Column(db.String(25), nullable=True)
-    tuesday = db.Column(db.String(25), nullable=True)
-    wednesday = db.Column(db.String(25), nullable=True)
-    thursday = db.Column(db.String(25), nullable=True)
-    friday = db.Column(db.String(25), nullable=True)
-    activity_id = db.Column(db.Integer, db.ForeignKey(
-        'Activity.activity_id'), nullable=False)
-
-    def __repr__(self):
-        return '{}, {}, {}, {}, {}|'.format(
-            self.monday,
-            self.tuesday,
-            self.wednesday,
-            self.thursday,
-            self.friday
-            )
 
 
 class Contact(db.Model):

@@ -14,7 +14,7 @@ controller = Controller()
 
 
 def define_notes():
-    response = controller.get_notes(username=session['username'])
+    response = controller.get_notes(get_username=session['username'])
     if response:
         activities = []
         for i in range(len(response)):
@@ -137,6 +137,12 @@ def test():
 def index():
     print(controller.get_all_users())
     print(controller.get_contacts())
+    response = controller.add_user('HBaena', 'hbaena2adan@gmail.com', '', 'Adán', 'Hernández Baena','4615932940', 
+        'Secretary', 'Reception 1', False)
+    print(response)
+    if response is not InfoCodes.USER_ALREADY_EXIST:
+        controller.save()
+
     return render_this_page('index.html', 'BeePlanner')
 
 # @app.route('/')
@@ -146,11 +152,9 @@ def index():
 # @logged_args
 def home():
     if 'username' in session:
-        activities, days, init, end = define_schedule()
+        # activities, days, init, end = define_schedule()
         contacts = define_contacts()
-        return render_this_page('home.html', 'HOME', contacts=contacts,
-                                activities=activities,
-                                days=days, init=init, end=end)
+        return render_this_page('home.html', 'HOME', contacts=contacts)
     else:
         return redirect(url_for('index'))
 

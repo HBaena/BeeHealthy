@@ -34,14 +34,13 @@ class Controller:
         return InfoCodes.SUCCESS
 
 
-    def add_user(self, username, email, password, name, lastname, phone):
+    def add_user(self, username, email, password, name, lastname, phone, description, workplace, doctor):
         # if self.model.read_user(username=username) or \
         #         self.model.read_user(email=email):
         if self.model.read_user(username=username) or \
                 self.model.read_user(email=email):
             return InfoCodes.USER_ALREADY_EXIST
-        self.model.create_user(username, email, password,
-                               name, lastname, phone)
+        self.model.create_user(username, email, password, name, lastname, phone, description, workplace, doctor)
         return InfoCodes.SUCCESS
     def get_user(self, username):
         return self.model.read_user(username)

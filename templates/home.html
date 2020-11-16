@@ -2,12 +2,13 @@
     {% block content %}
     {% include "nav.html" %}
     <div class="row home-page">
-<!--         # ---------------------------------------------
+<!--         
+        # ---------------------------------------------
         #           Contacts
         # ---------------------------------------------
  -->
 
-        <div class="col s4">
+        <div class="col s5">
             <div class="row s12" align="center">
               <h2 class="white-text">Reminders</h2>
             </div>
@@ -22,17 +23,22 @@
                 </ul>
                 {% else %}
                     <div class="row" align="center">
-                    <h2> No contacts yet</h2>
+                    <h2> No contact requests yet</h2>
                     <i class="material-icons large">layers_clear</i>
                     </div>
                 {% endif %}
 
             </div>
         </div>
+<!--         
+        # ---------------------------------------------
+        #           Contacts
+        # ---------------------------------------------
+ -->
 
-        <div class="col s8">
-            {% include "schedule.html" %}
+        <div class="col s7">
         </div>
+
     </div>
     <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
         <a class="btn-floating btn-large red">
@@ -43,6 +49,7 @@
           <li><a class="btn-floating amber darken-3 tooltipped" href="#activity-form" data-position="top" data-tooltip="Doctor"><i class="material-icons">face</i></a></li>
         </ul>
       </div>
+
     {% if activities != None%}
     {% for activity in activities %}
         {% with modal_id='modal-activity-{}'.format(activity.activity_id), modal_title=activity.title%}
