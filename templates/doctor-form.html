@@ -1,0 +1,105 @@
+<div class="modal" id="doctor-form" style="height: 100%;">
+    <div class="modal-content" style="height: 100%;">
+        <div class="row">
+          <div class="col s10" align="center"><h3>Doctor info</h3></div>
+          <div class="col s2"><i class="modal-close material-icons medium right">close</i></div>
+        </div>
+<form class="login-form" method="POST" action="{{ url_for('add_doctor') }}">
+
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a href="#test1">Personal</a></li>
+        <li class="tab col s3"><a href="#test2">Login</a></li>
+        <li class="tab col s3"><a href="#test3">Professional</a></li>
+        <li class="tab col s3"><a href="#test4">Contact</a></li>
+      </ul>
+    </div>
+    <div id="test1" class="col s12">
+        <div class=" input-field col s10">
+          <i class="material-icons prefix">person</i>
+          <input class="validate" id="name" name="name" type="text"  minlength="5">
+          <label class="" for="name" data-error="wrong" data-success="right">Name</label>
+        </div>
+        <div class=" input-field col s10">
+          <i class="material-icons prefix">person_outline</i>
+          <input class="validate" id="lastname" name="lastname" type="text"  minlength="5">
+          <label class="" for="lasname" data-error="wrong" data-success="right">Last name</label>
+        </div>      
+    </div>
+    <div id="test2" class="col s12">
+      <div class="row">
+        <div class=" input-field col s7">
+          <i class="material-icons prefix">face</i>
+          <input class="validate" id="username" name="username" type="text"  minlength="5">
+          <label class="" for="username" data-error="wrong" data-success="right">Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class=" input-field col s5">
+          <i class="material-icons prefix">lock</i>
+          <input class="validate" id="password" name="password" type="password"  minlength="5">
+          <label class="" for="password" data-error="wrong" data-success="right">Password</label>
+        </div>
+        <div class=" input-field col s5">
+          <i class="material-icons prefix">lock_outline</i>
+          <input class="validate" id="password-1" name="password-1" type="password"  minlength="5">
+          <label class="" for="password-1" data-error="wrong" data-success="right">Password</label>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div id="test3" class="col s12">
+      <div class="row">
+        <div class=" input-field col s6">
+          <i class="material-icons prefix">school</i>
+          <input class="validate" id="specialty" name="specialty" type="text"  minlength="5">
+          <label class="" for="specialty" data-error="wrong" data-success="right">Specialty</label>
+        </div>
+        <div class=" input-field col s4">
+          <i class="material-icons prefix">room</i>
+          <input class="validate" id="workplace" name="workplace" type="text"  minlength="5">
+          <label class="" for="workplace" data-error="wrong" data-success="right">Workplace</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s10">
+            <i class="material-icons prefix">description</i>
+            <textarea name="description" class="materialize-textarea"></textarea>
+            <label for="description" data-error="wrong" data-success="succes">Job description</label>
+        </div>
+      </div>
+
+    </div>
+    <div id="test4" class="col s12">
+      <div class="row">
+          <div class=" input-field col s4">
+            <i class="material-icons prefix">phone</i>
+            <input class="validate" id="phone" name="phone" type="tel"  minlength="10">
+            <label class="" for="phone" data-error="wrong" data-success="right">Phone number</label>
+          </div>
+          <div class=" input-field col s6">
+            <i class="material-icons prefix">mail</i>
+            <input class="validate" id="email" name="email" type="email"  minlength="5">
+            <label class="" for="email" data-error="wrong" data-success="right">e-mail</label>
+          </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="waves-effect waves-red btn-flat red white-text">REGISTER</button>
+      </div>
+    </div>
+  </div> 
+</form>
+</div>
+</div>
+
+<script type="text/javascript">
+  var instance = M.Tabs.init(el, options);
+
+  // Or with jQuery
+
+  // $(document).ready(function(){
+  //   $('.tabs').tabs();
+  // });
+</script>

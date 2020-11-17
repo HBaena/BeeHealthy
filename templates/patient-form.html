@@ -1,0 +1,74 @@
+<div class="modal" id="patient-form" style="height: 100%;">
+    <div class="modal-content" style="height: 100%;">
+        <div class="row">
+          <div class="col s10" align="center"><h3>Patient</h3></div>
+          <div class="col s2"><i class="modal-close material-icons medium right">close</i></div>
+        </div>
+<form class="login-form" method="POST" action="{{ url_for('add_patient') }}">
+
+<!-- Name -->
+<div class="row">
+    <div class=" input-field col s5">
+      <i class="material-icons prefix">person</i>
+      <input class="validate" id="name" name="name" type="text"  minlength="3">
+      <label class="" for="name" data-error="wrong" data-success="right">Name</label>
+    </div>
+    <div class=" input-field col s7">
+      <i class="material-icons prefix">person_outline</i>
+      <input class="validate" id="lastname" name="lastname" type="text"  minlength="5">
+      <label class="" for="lastname" data-error="wrong" data-success="right">Last name</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col s3">
+        <label>
+            <input type="radio" name="gender" value="Male" checked="True">
+            <span>Male</span>
+        </label>
+    </div>
+    <div class="col s3">
+        <label>
+            <input type="radio" name="gender" value="Female">
+            <span>Female</span>
+        </label>
+    </div>
+    <div class="col s3">
+        <label>
+            <input type="radio" name="gender" value="Not binary">
+            <span>Not binary</span>
+        </label>
+    </div>
+    <div class="col s3">
+        <label>
+            <input type="radio" name="gender" value="Not binary">
+            <span>I prefer not to say</span>
+        </label>
+    </div>
+
+</div>
+<!-- <div class="row">
+</div>
+ -->
+
+<!-- Description -->
+<div class="row">
+    <div class=" input-field col s5">
+      <i class="material-icons prefix">phone</i>
+      <input class="validate" id="phone" name="phone" type="tel" minlength="10">
+      <label class="" for="phone" data-error="wrong" data-success="right">phone</label>
+    </div>    
+    <div class=" input-field col s7">
+      <i class="material-icons prefix">mail</i>
+      <input class="validate" id="email" name="email" type="email" minlength="5">
+      <label class="" for="email" data-error="wrong" data-success="right">email</label>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <!-- <a onclick="done_Reminder()" class="waves-effect waves-red btn-flat red white-text">DONE</a> -->
+    <button class="waves-effect waves-red btn-flat red white-text">REGISTER</button>
+</div> 
+
+</form>
+</div>
+</div>

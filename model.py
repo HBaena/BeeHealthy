@@ -252,7 +252,7 @@ class User(db.Model):
     name = db.Column(db.String(30), nullable=False)
     lastname = db.Column(db.String(30), nullable=False)
     phone = db.Column(db.String(12), nullable=True)
-    description = db.Column(db.Text(length=None), nullable=False)
+    specialty = db.Column(db.Text(length=None), nullable=False)
     workplace = db.Column(db.String(20), nullable=True)
     doctor = db.Column(db.Boolean(),nullable=True)
     # db.relationship must      be in the parent table
@@ -264,7 +264,7 @@ class User(db.Model):
         return '{},{},{},{},{},{}'.format(self.username, self.email,
                                           self.password, self.name,
                                           self.lastname, self.phone,
-                                          self.description, self.workplace,
+                                          self.specialty, self.workplace,
                                           self.doctor)
 
 
@@ -275,10 +275,10 @@ class Appointment(db.Model):
     id_appointment = db.Column(db.Integer, nullable=False, primary_key=True)
     date = db.Column(db.DateTime(), nullable=False)
     description = db.Column(db.Text(length=None), nullable=False, )
-    weight = db.Column(db.Float(), nullable=False)
-    height = db.Column(db.Float(), nullable=False)
-    temperature = db.Column(db.Float(), nullable=False)
-    heart_rate = db.Column(db.Float(), nullable=False)
+    weight = db.Column(db.Float(), nullable=True)
+    height = db.Column(db.Float(), nullable=True)
+    temperature = db.Column(db.Float(), nullable=True)
+    heart_rate = db.Column(db.Float(), nullable=True)
     done = db.Column(db.Boolean(), nullable=False)
     username = db.Column(db.String(30),db.ForeignKey(
                'User.username'),nullable=False )
@@ -297,11 +297,12 @@ class Patient(db.Model):
     """docstring for Patient"""
 
     __tablename__ = "Patient"
-    id_patient = db.Column(db.Integer, nullable=True, primary_key=True)
+    id_patient = db.Column(db.String(10), nullable=True, primary_key=True)
     name = db.Column(db.String(300), nullable=False)
     lastname = db.Column(db.String(30), nullable=False)
     phone = db.Column(db.String(12), nullable=False)
-    gender = db.Column(db.Boolean(), nullable=False)
+    email = db.Column(db.String(40), nullable=False)
+    gender = db.Column(db.String(20), nullable=False)
     weight = db.Column(db.Float(), nullable=False)
     height = db.Column(db.Float(), nullable=False)
     temperature = db.Column(db.Float(), nullable=False)
