@@ -18,12 +18,12 @@
     <div id="test1" class="col s12">
         <div class=" input-field col s10">
           <i class="material-icons prefix">person</i>
-          <input class="validate" id="name" name="name" type="text"  minlength="5">
+          <input required="True" class="validate" id="name" name="name" type="text"  minlength="3">
           <label class="" for="name" data-error="wrong" data-success="right">Name</label>
         </div>
         <div class=" input-field col s10">
           <i class="material-icons prefix">person_outline</i>
-          <input class="validate" id="lastname" name="lastname" type="text"  minlength="5">
+          <input required="True" class="validate" id="lastname" name="lastname" type="text"  minlength="5">
           <label class="" for="lasname" data-error="wrong" data-success="right">Last name</label>
         </div>      
     </div>
@@ -31,19 +31,19 @@
       <div class="row">
         <div class=" input-field col s7">
           <i class="material-icons prefix">face</i>
-          <input class="validate" id="username" name="username" type="text"  minlength="5">
+          <input required="True" class="validate" id="username" name="username" type="text"  minlength="5">
           <label class="" for="username" data-error="wrong" data-success="right">Username</label>
         </div>
       </div>
       <div class="row">
         <div class=" input-field col s5">
           <i class="material-icons prefix">lock</i>
-          <input class="validate" id="password" name="password" type="password"  minlength="5">
+          <input required="True" class="validate" id="password" name="password" type="password"  minlength="5">
           <label class="" for="password" data-error="wrong" data-success="right">Password</label>
         </div>
         <div class=" input-field col s5">
           <i class="material-icons prefix">lock_outline</i>
-          <input class="validate" id="password-1" name="password-1" type="password"  minlength="5">
+          <input required="True" class="validate" id="password-1" name="password-1" type="password"  minlength="5">
           <label class="" for="password-1" data-error="wrong" data-success="right">Password</label>
         </div>
       </div>
@@ -53,19 +53,19 @@
       <div class="row">
         <div class=" input-field col s6">
           <i class="material-icons prefix">school</i>
-          <input class="validate" id="specialty" name="specialty" type="text"  minlength="5">
+          <input required="True" class="validate" id="specialty" name="specialty" type="text"  minlength="5">
           <label class="" for="specialty" data-error="wrong" data-success="right">Specialty</label>
         </div>
         <div class=" input-field col s4">
           <i class="material-icons prefix">room</i>
-          <input class="validate" id="workplace" name="workplace" type="text"  minlength="5">
+          <input required="True" class="validate" id="workplace" name="workplace" type="text"  minlength="5">
           <label class="" for="workplace" data-error="wrong" data-success="right">Workplace</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s10">
             <i class="material-icons prefix">description</i>
-            <textarea name="description" class="materialize-textarea"></textarea>
+            <textarea required="True" name="description" class="materialize-textarea" minlength="20"></textarea>
             <label for="description" data-error="wrong" data-success="succes">Job description</label>
         </div>
       </div>
@@ -75,12 +75,12 @@
       <div class="row">
           <div class=" input-field col s4">
             <i class="material-icons prefix">phone</i>
-            <input class="validate" id="phone" name="phone" type="tel"  minlength="10">
+            <input required="True" class="validate" id="phone-doctor" name="phone" type="tel"  minlength="10">
             <label class="" for="phone" data-error="wrong" data-success="right">Phone number</label>
           </div>
           <div class=" input-field col s6">
             <i class="material-icons prefix">mail</i>
-            <input class="validate" id="email" name="email" type="email"  minlength="5">
+            <input required="True" class="validate" id="email" name="email" type="email">
             <label class="" for="email" data-error="wrong" data-success="right">e-mail</label>
           </div>
       </div>

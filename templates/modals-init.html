@@ -4,12 +4,14 @@
   <script>
   var currYear = (new Date()).getFullYear();
   $(document).ready(function(){
-  $('select').formSelect();
+    
+
+    $('select').formSelect();
     $('.tooltipped').tooltip();
  
     $('.modal').modal({
    
-        dismissible: false, // Modal cannot be closed by clicking anywhere outside
+        dismissible: true, // Modal cannot be closed by clicking anywhere outside
    
       });
     $(".datepicker").datepicker({
@@ -20,6 +22,29 @@
       format: "dd-mm-yyyy", 
       container: 'body'
     });
+// Validating tel
+    phone = document.getElementById('phone-patient');
+    $('#phone-patient').on('input',
+    function () {
+      // alert('Hello');
+        if (! $.isNumeric($( this ).val())) {
+            phone.setCustomValidity("A number is needed");
+        } else {
+            phone.setCustomValidity("");
+        }
+      });
+
+    phone_2 = document.getElementById('phone-doctor');
+    $('#phone-doctor').on('input',
+    function () {
+      // alert('Hello');
+        if (! $.isNumeric($( this ).val())) {
+            phone.setCustomValidity("A number is needed");
+        } else {
+            phone.setCustomValidity("");
+        }
+      });
+
 
   });
     autoplay()   
@@ -30,4 +55,20 @@
     function openModalOwn(id_modal) {
         $('#'+id_modal).modal('open');
     }
+
+    function onClickPatient(){
+      // alert($('#phone').value());
+    }
   </script>
+
+<!-- <script type="text/javascript">
+  const phone = document.getElementById("phone-patient");
+
+  phone.addEventListener("input", function (event) {
+    if (phone.validity.typeMismatch) {
+      phone.setCustomValidity("¡Se esperaba un tel!");
+    } else {
+      phone.setCustomValidity("");
+    }
+  });
+</script> -->

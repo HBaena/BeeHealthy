@@ -205,6 +205,8 @@ def contact():
 @app.route('/add-patient', methods=['POST'])
 def add_patient():
     print(request.form)
+    # return redirect(url_for('home'))
+
     name = request.form['name']
     lastname = request.form['lastname']
     gender = request.form['gender']
@@ -212,6 +214,7 @@ def add_patient():
     email = request.form['email']
     patient_id = patiente_id(name, lastname, phone)
     if not all((name, lastname, gender, phone, email)):
+        print('NOPE')
         return redirect(url_for('home'))
     response = controller.add_patient(patient_id, name, lastname, phone, email, gender)
     if response == InfoCodes.SUCCESS:
@@ -247,6 +250,8 @@ def add_doctor():
         return redirect(url_for('home'))
     if password != password_1:
         return redirect(url_for('home'))
+
+    response = controller.add_user(username, email, password, name, lastname, phone, specialty, workplace, True)
 
     return redirect(url_for('home'))
 
