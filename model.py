@@ -113,11 +113,11 @@ class Model:
     #       USER METHODS        #
     # ------------------------- #
 
-    def create_user(self, username, email, password, name, lastname, phone, description, workplace, doctor):
+    def create_user(self, username, email, password, name, lastname, phone, speciality, workplace, doctor):
         self.__session.add(User(
             username=username, email=email, password=password, 
             name=name, lastname=lastname,phone=phone, 
-            description=description, workplace=workplace, doctor=doctor))
+            speciality=speciality, workplace=workplace, doctor=doctor))
 
     def read_user(self, username=None, email=None):
         return self.__session.query(User).filter(
@@ -128,7 +128,7 @@ class Model:
         return self.__session.query(User).all()
 
     def update_user(self, user, username=None, email=None, password=None, name=None, lastname=None, 
-                                phone=None, description=None, workplace=None, doctor=None):
+                                phone=None, speciality=None, workplace=None, doctor=None):
         if not user:
             return False
         if username:
@@ -147,8 +147,8 @@ class Model:
             user.lastname = lastname
         if phone:
             user.phone = phone
-        if description:
-            user.description = description
+        if speciality:
+            user.speciality = speciality
         if workplace:
             user.workplace = workplace
         if doctor:
@@ -252,7 +252,7 @@ class User(db.Model):
     name = db.Column(db.String(30), nullable=False)
     lastname = db.Column(db.String(30), nullable=False)
     phone = db.Column(db.String(12), nullable=True)
-    specialty = db.Column(db.Text(length=None), nullable=False)
+    speciality = db.Column(db.Text(length=None), nullable=False)
     workplace = db.Column(db.String(20), nullable=True)
     doctor = db.Column(db.Boolean(),nullable=True)
     # db.relationship must      be in the parent table
@@ -264,7 +264,7 @@ class User(db.Model):
         return '{},{},{},{},{},{}'.format(self.username, self.email,
                                           self.password, self.name,
                                           self.lastname, self.phone,
-                                          self.specialty, self.workplace,
+                                          self.speciality, self.workplace,
                                           self.doctor)
 
 
