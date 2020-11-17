@@ -73,9 +73,10 @@ class Model:
 
     def __init__(self, session=db.session):
         self.__session = session
-    # ------------------------- #
-    #       GENERAL METHODS     #
-    # ------------------------- #
+
+# ------------------------------------------------------------------------------------------------- #
+#                                          db methods                                               #
+# ------------------------------------------------------------------------------------------------- #
 
     def save_changes(self):
         # If there are modifica
@@ -93,10 +94,10 @@ class Model:
 
 
 
-    # ------------------------- #
-    #      CONTACT METHODS      #
-    # ------------------------- #
-    # 
+# ------------------------------------------------------------------------------------------------- #
+#                                            Contact                                                #
+# ------------------------------------------------------------------------------------------------- #
+
     def create_contact(self, name, phone, email, question):
         self.__session.add(Contact(name=name, phone=phone, email=email, question=question))
 
@@ -109,9 +110,10 @@ class Model:
 
     def delete_contact(self, contact):
         self.__session.delete(contact)
-    # ------------------------- #
-    #       USER METHODS        #
-    # ------------------------- #
+
+# ------------------------------------------------------------------------------------------------- #
+#                                             User                                                  #
+# ------------------------------------------------------------------------------------------------- #
 
     def create_user(self, username, email, password, name, lastname, phone, speciality, workplace, doctor):
         self.__session.add(User(
@@ -169,77 +171,10 @@ class Model:
         else:
             return InfoCodes.SUCCESS
 
-    # ------------------------- #
-    #       ACTIVITY METHODS    #
-    # ------------------------- #
-    def create_schedule(self, monday, tuesday, wednesday, thursday,
-                        friday, activity_id):
-        self.__session.add(Schedule(monday=monday, tuesday=tuesday,
-                                    wednesday=wednesday, thursday=thursday,
-                                    friday=friday, activity_id=activity_id))
 
-    def read_schedule(self, activity_id):
-        return self.__session.query(Schedule).join(Activity).filter(
-            Activity.activity_id == activity_id).all()
-
-    def create_acitivity(self,  title, description,
-                         priority, location, username, ):
-        self.__session.add(Activity(description=description,
-                                    title=title, priority=priority,
-                                    location=location, username=username,))
-
-    def read_activity(self, title=None, activity_id=None):
-        if title:
-            response = self.__session.query(Activity).filter(
-                Activity.title == title).first()
-        else:
-            response = self.__session.query(Activity).filter(
-                Activity.activity_id == activity_id).first()
-
-        if response:
-            return response
-        else:
-            return InfoCodes.ERROR
-
-    def read_activities(self, username=None):
-        return self.__session.query(Activity).join(
-            User).filter(User.username == username).all()
-
-    def delete_activity(self, activity):
-        self.__session.delete(activity)
-
-    def create_note(self, content, priority, due_date,
-                    creation_date, username,
-                    activity_id,):
-        self.__session.add(Note(content=content, priority=priority,
-                                due_date=due_date,
-                                creation_date=creation_date,
-                                username=username,
-                                activity_id=activity_id,))
-
-    def read_notes(self, username=None, activity_id=None):
-        if username:
-            return self.__session.query(Note).join(
-                User).filter(User.username == username).all()
-        elif activity_id:
-            return self.__session.query(Note).join(
-                Activity).filter(Activity.activity_id == activity_id).all()
-
-    def read_note(self, username, activity_id, content):
-        return self.__session.query(Note).filter(
-            Note.username == username & Note.activity_id == activity_id &
-            Note.content == content).first()
-
-    def read_note_id(self, note_id):
-        return self.__session.query(Note).filter(
-            Note.note_id == note_id).first()
-
-    def delete_note(self, note):
-        self.__session.delete(note)
-
-
-# DATABASE TABLES DEFINITION
-
+# ------------------------------------------------------------------------------------------------- #
+#                                             Models                                                #
+# ------------------------------------------------------------------------------------------------- #
 
 
 class User(db.Model):
