@@ -108,8 +108,27 @@ class Model:
     def read_contacts(self):
         return self.__session.query(Contact).all()
 
-    def delete_contact(self, contact):
-        self.__session.delete(contact)
+# ------------------------------------------------------------------------------------------------- #
+#                                             User                                                  #
+# ------------------------------------------------------------------------------------------------- #
+
+    def create_patient(self, id_patient, name, lastname, phone, email, gender, weight=-1, height=-1, temperature=-1, heart_rate=-1):
+        self.__session.add(Patient(
+            id_patient=id_patient, name=name, 
+            lastname=lastname, phone=phone, 
+            email=email, gender=gender, 
+            weight=weight, height=height, 
+            temperature=temperature, 
+            heart_rate=heart_rate))
+
+    def read_patient(self, _filter):
+        return self.__session.query(Patient).filter(_filter).first()
+
+    def read_patients(self,):
+            return self.__session.query(Patient).all()
+
+    def delete_patient(self, patient):
+        self.__session.delete(patient)
 
 # ------------------------------------------------------------------------------------------------- #
 #                                             User                                                  #
@@ -121,13 +140,12 @@ class Model:
             name=name, lastname=lastname,phone=phone, 
             speciality=speciality, workplace=workplace, doctor=doctor))
 
-    def read_user(self, username=None, email=None):
-        return self.__session.query(User).filter(
-                (User.username == username) | (User.email == username)).first()
+    def read_user(self, _filter):
+        return self.__session.query(User).filter(_filter).first()
 
 
-    def read_users(self):
-        return self.__session.query(User).all()
+    def read_users(self, _filter=None):
+            return self.__session.query(User).filter(_filter if not _filter else User).all()
 
     def update_user(self, user, username=None, email=None, password=None, name=None, lastname=None, 
                                 phone=None, speciality=None, workplace=None, doctor=None):

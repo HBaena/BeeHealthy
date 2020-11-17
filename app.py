@@ -13,11 +13,11 @@ controller = Controller()
 # def int_to_hours_labels(indx: int) -> str:
 #     return f'{"0"*(2 - len(str(indx)))}{indx}:00'
 
-# --------- #
-# FUNCTIONS #
-# --------- #
+# ------------------------------------------------------------------------------------------------- #
+#                                        Miscelanious                                               #
+# ------------------------------------------------------------------------------------------------- #
 
-# --------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------- #
 
 def define_contacts():
     response = controller.get_contacts()
@@ -71,12 +71,8 @@ def patiente_id(name, lastname, phone):
     return ''.join([name[:2], lastname[:2], str(phone[-4:-1]), str(randint(100, 999))]).lower().translate(_dict)
 
 
-# ----------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------- #
 
-@app.route('/test')
-def test():
-    # return render_template('home.html')
-    return render_this_page('404.html', '404')
 
 # ------------------------------------------------------------------------------------------------- #
 #                                        Home methods                                               #
@@ -101,13 +97,16 @@ def index():
 @app.route('/home')
 # @logged_args
 def home():
+    print(controller.get_patients())
     if 'username' in session:
         # activities, days, init, end = define_schedule()
         contacts = define_contacts()
         appoiments = None
+        patients = controller.get_patients()
         return render_this_page('home.html', 'HOME', 
             contacts=contacts,
-            appoiments=appoiments)
+            appoiments=appoiments,
+            patients=patients)
     else:
         return redirect(url_for('index'))
 
@@ -136,7 +135,7 @@ def login():
             if response == InfoCodes.WRONG_PASSWORD:
                 return render_this_page('login.html', 'LOGIN')
             if response == InfoCodes.SUCCESS:
-                session['username'] = controller.get_username(email).username
+                session['username'] = controller.get_username(email)
                 return redirect(url_for('home'))
 
     return render_this_page('login.html', 'LOGIN')
@@ -211,14 +210,20 @@ def add_patient():
     gender = request.form['gender']
     phone = request.form['phone']
     email = request.form['email']
-    print(patiente_id(name, lastname, phone))
+    patient_id = patiente_id(name, lastname, phone)
     if not all((name, lastname, gender, phone, email)):
         return redirect(url_for('home'))
+    response = controller.add_patient(patient_id, name, lastname, phone, email, gender)
+    if response == InfoCodes.SUCCESS:
+        controller.save()
+        return redirect(url_for('home'))
+    
+    return render_this_page('404.html', '404'), 404
 
-    return redirect(url_for('home'))
 
 @app.route('/add-appoiment', methods=['POST'])
 def add_appoiment():
+    print('Add appoiment')
     print(request.form)
     return redirect(url_for('home'))
 
@@ -274,6 +279,12 @@ def about():
 @app.errorhandler(404)
 def error_404(e):
     return render_this_page('404.html', '404'), 404
+
+@app.route('/test')
+def test():
+    # return render_template('home.html')
+    return render_this_page('404.html', '404')
+
 # ------------------------------------------------------------------------------------------------- #
 
 

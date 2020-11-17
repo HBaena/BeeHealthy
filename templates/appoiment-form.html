@@ -13,7 +13,7 @@
     <option value="" disabled selected>Patient</option>
     {% if patients != None %}
             {% for patient in patients %}
-                <option value="{{patient.title}}">{{patient.title}}</option>
+                <option value="{{patient.id_patient}}">{{patient.id_patient}} - {{ patient.name }} {{ patient.lastname}} </option>
             {% endfor %}
     {% endif %}
     </select>
