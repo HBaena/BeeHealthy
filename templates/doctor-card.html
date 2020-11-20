@@ -1,0 +1,26 @@
+{# BEGIN DOCTOR #}
+    {% if i%2 %}
+      <div class="card header-even patient-card">
+    {% else %}
+      <div class="card header-odd patient-card">
+    {% endif %}
+        <div class="card-content white-text">
+          <span class="card-title"><b> {{ doctor.name}} {{doctor.lastname}} </b></span>
+          <div class="row">
+            <div class="col s3">Speciality: {{ doctor.speciality }}</div>
+            <div class="col s5">Workplace: {{ doctor.workplace }}</div>
+          </div>
+          <div class="row">
+            <div class="col s3">Phone: {{ doctor.phone}}</div>
+            <div class="col s3">email: {{ doctor.email}}</div>
+            <div class="col s3">Username: {{ doctor.username}}</div>
+            <div class="col s3">Password: {{ doctor.password}}</div>
+          </div>
+        </div>
+        <div class="card-action">
+          <a onclick="editDoctor('{{doctor.username}}')" ><i class="material-icons tooltipped" data-position="top" data-tooltip="Edit">edit</i></a>
+          <a onclick="deleteDoctor('{{doctor.username}}')" ><i class="material-icons tooltipped" data-position="top" data-tooltip="Delete">delete</i></a>
+        </div>
+      </div>
+
+{# END DOCTOR #}

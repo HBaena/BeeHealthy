@@ -83,8 +83,9 @@ class Controller:
 
         return InfoCodes.SUCCESS
 
-    def get_patient(self, email):
-        response = self.model.read_patient(Patient.email == email)
+    def get_patient(self, id_patient):
+        response = self.model.read_patient(Patient.id_patient == id_patient)
+        # print(id_patient)
         if not response:
             return InfoCodes.ERROR
         else:

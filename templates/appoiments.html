@@ -9,7 +9,7 @@
             <i class="material-icons large"> event </i> 
         </div>
         <div class="col s10">
-            <h5 class="truncate white-text">({{ appoiment.date }})   {{   appoiment.description }}</h5>
+            <h5 class="truncate white-text">({{ date }})   {{   description }}</h5>
         </div>
     </div>
     {% if not i%2 %}
@@ -18,16 +18,18 @@
         <div class="collapsible-body body-even   white-text">
     {% endif %}
         <div class="divider"></div>
-        <p class="flow-text" style="font-size: 22px;"> {{ appoiment.description }} </p>
+        <p class="flow-text" style="font-size: 22px;"> {{ description }} </p>
             <div class="footer-copyright" style="padding-bottom: 35px;opacity: 1;">
-                <div class="col s6"><strong>Dotor:</strong> {{ appoiment.username }} </div>
-                <div class="col s6"><strong>Patient:</strong> {{ appoiment.id_patient }}</div>            
-                <div class="col s11"><strong>Date:</strong> {{ appoiment.date }}</div>
+                <div class="col s6"><strong>Dotor:</strong> {{ doctor }} </div>
+                <div class="col s6"><strong>Patient:</strong> {{ patient }}</div>            
+                <div class="col s11"><strong>Date:</strong> {{ date }}</div>
                 <div class="col s1">
                     <div class="row">                    
-                        <a onclick="deleteAppoiment('{{ appoiment.id_appointment }}' )" class="btn-floating btn red"><i class="material-icons">delete</i></a>
+                        {% if flag_2 %}
+                        <a onclick="deleteAppoiment('{{ _id }}' )" class="btn-floating btn red"><i class="material-icons">delete</i></a>
+                        {% endif %}
                         {% if flag %}
-                            <a onclick="finishAppoiment('{{ appoiment.id_appointment }}' )" class="btn-floating btn green"><i class="material-icons">check</i></a>
+                            <a onclick="finishAppoiment('{{ _id }}' )" class="btn-floating btn green"><i class="material-icons">check</i></a>
                         {% endif %}
                     </div>
                 </div>

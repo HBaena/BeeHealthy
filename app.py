@@ -4,7 +4,7 @@ from random import choice, randint
 # from numpy.random import randint
 from controller import Controller
 from model import InfoCodes, MODAL_COLORS, Priorities
-from datetime import datetime
+from datetime import datetime, timedelta
 # from unidecode import  unidecode
 # 
 # OOPS_IMG =  url_for('static', filename='img/error.png')
@@ -32,21 +32,25 @@ def define_contacts():
     else:
         return None
 
-def define_appoiments(patiente_id=None):
+def define_appoiments(patiente_id=None, username=None):
     response = list(controller.get_appoiments_unchecked(patiente_id))
-    print('Hello')
-    print(response)
+    if username:
+        response = list(filter(lambda x: x.username == username, response))
     if response:
-        return zip(range(len(response)), response,
-                   [get_random_color() for _ in range(len(response))])
+        return [(
+            i, x.id_appointment, x.date, x.description, controller.get_user(x.username).fullname(), 
+            *controller.get_patient(x.id_patient).contact()) for i, x in enumerate(response)]
     else:
         return None
 
-def define_appoiments_c(patiente_id=None):
+def define_appoiments_c(patiente_id=None, username=None):
     response = list(controller.get_appoiments_checked(patiente_id))
+    if username:
+        response = list(filter(lambda x: x.username == username, response))
     if response:
-        return zip(range(len(response)), response,
-                   [get_random_color() for _ in range(len(response))])
+        return [(
+            i, x.id_appointment, x.date, x.description, controller.get_user(x.username).fullname(), 
+            *controller.get_patient(x.id_patient).contact()) for i, x in enumerate(response)]
     else:
         return None
 
@@ -105,15 +109,18 @@ def patiente_id(name, lastname, phone):
 @app.route('/')
 @app.route('/index')
 def index():
-    print(controller.get_all_users())
-    print(controller.get_contacts())
-    response = controller.add_user('HBaena', 'hbaena2adan@gmail.com', '', 'Adán', 'Hernández Baena','4615932940', 
-        'Secretary', 'Reception 1', False)
-    print(response)
-    if response is not InfoCodes.USER_ALREADY_EXIST:
-        controller.save()
+    print(controller.get_roots())
 
-    return render_this_page('index.html', 'BeePlanner')
+    response = controller.add_user('root', 'root@gmail.com', 'rootroot', 'Adán', 'Hernández Baena','4615932940', 
+        'Secretary', 'Reception 1', False)
+    if response is not InfoCodes.USER_ALREADY_EXIST: controller.save()
+    response = controller.add_patient(patiente_id('Andres Manuel', 'López Obrador', '1234567890'), 
+        'Andres Manuel', 'López Obrador', '1234567890', 'amlo@gmail.com', 'Male')
+    if response is not InfoCodes.USER_ALREADY_EXIST: controller.save()
+    response = controller.add_user('Grey', 'grey', 'password', 'Meredit', 'Grey', '0123456789', speciality='Cirugía', workplace='Consultorio 3', doctor=True)
+    if response is not InfoCodes.USER_ALREADY_EXIST: controller.save()
+
+    return render_this_page('index.html', 'BeeHealthy')
 
 # @app.route('/')
 
@@ -121,18 +128,46 @@ def index():
 @app.route('/home')
 # @logged_args
 def home():
-    print(list(controller.get_appoiments_unchecked('adhe294532')))
     if 'username' in session:
         # activities, days, init, end = define_schedule()
         appoiments = define_appoiments()
         contacts = define_contacts()
         patients = controller.get_patients()
         doctors = controller.get_doctors()
+        if len(doctors):
+            doctors = zip(range(len(doctors)), doctors)
+        else:
+            doctors = None
+        if len(patients):
+            patients = zip(range(len(patients)), patients)
+        else:
+            patients = None
+
         return render_this_page('home.html', 'HOME', 
             contacts=contacts,
             appoiments=appoiments,
             patients=patients,
             doctors=doctors
+            )
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/doctor')
+# @logged_args
+def doctor():
+    # print(list(controller.get_appoiments_unchecked('adhe294532')))
+    if 'username' in session:
+        # activities, days, init, end = define_schedule()
+        appoiments = define_appoiments(username=session['username'])
+        today = datetime.today()
+        week = timedelta(days=7)
+        this_week = list(filter(lambda x:x[2] >= today and x[2] <= (today+week),  appoiments))
+        later = list(filter(lambda x:x[2] > (today+week),  appoiments))
+        if not len(this_week): this_week=None
+        if not len(later): later=None
+        return render_this_page('doctor.html', 'Doctor Panel', 
+                this_week=this_week,
+                later=later, 
             )
     else:
         return redirect(url_for('index'))
@@ -146,6 +181,7 @@ def home():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    session.pop('doctor', None)
     return redirect(url_for('home'))
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -163,6 +199,11 @@ def login():
                 return render_this_page('login.html', 'LOGIN')
             if response == InfoCodes.SUCCESS:
                 session['username'] = controller.get_username(email)
+                session['doctor'] = controller.get_user(email).doctor
+                print(session['doctor'])
+            if session['doctor']:
+                return redirect(url_for('doctor'))
+            else:
                 return redirect(url_for('home'))
 
     return render_this_page('login.html', 'LOGIN')
@@ -314,9 +355,28 @@ def add_doctor():
 @app.route('/contact/remove/<string:contact_id>')
 def remove_contact(contact_id):
     print(contact_id)
-
     if 'username' in session:
         if controller.remove_contact(contact_id) == InfoCodes.SUCCESS:
+            controller.save()
+            return redirect(url_for('home'))
+
+    return render_this_page('404.html', '404'), 404
+
+@app.route('/doctor/remove/<string:doctor_id>')
+def remove_doctor(doctor_id):
+    print(doctor_id)
+    if 'username' in session:
+        if controller.remove_user(doctor_id) == InfoCodes.SUCCESS:
+            controller.save()
+            return redirect(url_for('home'))
+
+    return render_this_page('404.html', '404'), 404
+
+@app.route('/patient/remove/<string:patient_id>')
+def remove_patient(patient_id):
+    print(patient_id)
+    if 'username' in session:
+        if controller.remove_patient(patient_id) == InfoCodes.SUCCESS:
             controller.save()
             return redirect(url_for('home'))
 
@@ -327,7 +387,7 @@ def remove_appoiment(appoiment_id):
     print(appoiment_id)
 
     if 'username' in session:
-        if controller.remove_appoiment(app) == InfoCodes.SUCCESS:
+        if controller.remove_appoiment(appoiment_id) == InfoCodes.SUCCESS:
             controller.save()
             return redirect(url_for('home'))
 

@@ -1,0 +1,27 @@
+{# BEGIN PATIENT #}
+    {% if not i%2 %}
+      <div class="card header-even patient-card">
+    {% else %}
+      <div class="card header-odd patient-card">
+    {% endif %}
+        <div class="card-content white-text">
+          <span class="card-title"><b> {{patient.name}} {{patient.lastname}} </b></span>
+          <div class="row">
+            <div class="col s2">Weight: {{ patient.weight}} kg</div>
+            <div class="col s2">Height: {{ patient.height}} m</div>
+            <div class="col s2">Temperature: {{ patient.temperature}}° C</div>
+            <div class="col s2">Heart rate: {{ patient.heart_rate}} kg</div>
+          </div>
+          <div class="row">
+            <div class="col s3">Phone: {{ patient.phone}}</div>
+            <div class="col s4">email: {{ patient.email}}</div>
+            <div class="col s4">Gender: {{ patient.gender}}</div>
+          </div>
+        </div>
+        <div class="card-action">
+          <a onclick="editPatient('{{patient.id_patient}}')" ><i class="material-icons tooltipped" data-position="top" data-tooltip="Edit">edit</i></a>
+          <a onclick="deletePatient('{{patient.id_patient}}')" ><i class="material-icons tooltipped" data-position="top" data-tooltip="Delete">delete</i></a>
+        </div>
+      </div>
+
+{# END PATIENT#}

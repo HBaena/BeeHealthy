@@ -2,13 +2,13 @@
     {% block content %}
     {% include "nav.html" %}
         
-<div class="row home-page">
+<div class="row s12 home-page">
 <!--         
         # ---------------------------------------------
         #           Contacts
         # ---------------------------------------------
  -->
-
+        <div class="row center"><h1>Admin panel</h1></div>
         <div class="col s5">
             <div class="row s12" align="center">
               <h2>Contacts</h2>
@@ -24,7 +24,7 @@
                 </ul>
                 {% else %}
                     <div class="row" align="center">
-                    <h2> No contact requests yet</h2>
+                    <h3> No contact requests yet</h3>
                     <i class="material-icons large">layers_clear</i>
                     </div>
                 {% endif %}
@@ -45,15 +45,15 @@
             <div class="row s12">
                 {% if appoiments != None %}
                 <ul class="collapsible popout reminder transparent">
-                    {% for i, appoiment, color in appoiments %}
-                        {% with appoiment=appoiment, flag=True %}
+                    {% for i, _id, date, description, doctor, patient, phone in appoiments %}
+                        {% with i=i, _id=_id, date=date, description=description, doctor=doctor, patient=patient, phone=phone, flag=True %}
                             {% include 'appoiments.html'%}
                         {% endwith%}
                     {% endfor%}
                 </ul>
                 {% else %}
                     <div class="row" align="center">
-                    <h2> No appoiments yet</h2>
+                    <h3> No appoiments yet</h3>
                     <i class="material-icons large">layers_clear</i>
                     </div>
                 {% endif %}
@@ -61,18 +61,51 @@
             </div>
         </div>
 
+        <div class="divider"></div>
+    </div>
+
+    <div class="row s12 home-page">
+        <div class="col s6">
+            <h2 class="center">Doctors</h2>
+            {% if doctors != None %}
+                {% for i, doctor in doctors %}
+                    {% include "doctor-card.html" %}
+                {% endfor %}
+            {% else %}
+                <div class="col s6" align="center">
+                <h3> No doctors yet</h3>
+                <i class="material-icons large">school</i>
+                </div>
+            {% endif %}
+        </div>        
+
+        <div class="col s6">
+            <h2 class="center">Patients</h2>
+            {% if doctors != None %}
+                {% for i, patient in patients %}
+                    {% include "patient-card.html" %}
+                {% endfor %}
+            {% else %}
+                <div class="col s6" align="center">
+                <h3> No doctors yet</h3>
+                <i class="material-icons large">school</i>
+                </div>
+            {% endif %}
+        </div>        
+
+
     </div>
 
 
-    <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
-        <a class="btn-floating btn-large btn">
-          <i class="large material-icons">add</i>
-        </a>
-        <ul>
-          <li><a class="btn-floating blue tooltipped" href="#appoiment-form" data-position="top" data-tooltip="Appoiment" ><i class="material-icons">event</i></a></li>
-          <li><a class="btn-floating green tooltipped" href="#patient-form" data-position="top" data-tooltip="Patient" ><i class="material-icons">pregnant_woman</i></a></li>
-          <li><a class="btn-floating amber darken-3 tooltipped" href="#doctor-form" data-position="top" data-tooltip="Doctor"><i class="material-icons">face</i></a></li>
-        </ul>
+        <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+            <a class="btn-floating btn-large btn">
+              <i class="large material-icons">add</i>
+            </a>
+            <ul>
+              <li><a class="btn-floating blue tooltipped" href="#appoiment-form" data-position="top" data-tooltip="Appoiment" ><i class="material-icons">event</i></a></li>
+              <li><a class="btn-floating green tooltipped" href="#patient-form" data-position="top" data-tooltip="Patient" ><i class="material-icons">pregnant_woman</i></a></li>
+              <li><a class="btn-floating amber darken-3 tooltipped" href="#doctor-form" data-position="top" data-tooltip="Doctor"><i class="material-icons">face</i></a></li>
+            </ul>
       </div>
       
     {% include "doctor-form.html" %}

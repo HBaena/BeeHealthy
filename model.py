@@ -246,6 +246,8 @@ class User(db.Model):
                                           self.lastname, self.phone,
                                           self.speciality, self.workplace,
                                           self.doctor)
+    def fullname(self):
+        return '{} {}'.format(self.name, self.lastname)
 
 
 class Appointment(db.Model):
@@ -265,7 +267,6 @@ class Appointment(db.Model):
     id_patient = db.Column(db.Integer,db.ForeignKey(
                'Patient.id_patient'),nullable=False )
     
-
     def __repr__(self):
         return '{},{},{},{},{},{},{}, {}, {}, {}|'.format(self.id_appointment, self.date,
                                             self.description, self.weight,
@@ -277,7 +278,7 @@ class Patient(db.Model):
     """docstring for Patient"""
 
     __tablename__ = "Patient"
-    id_patient = db.Column(db.String(10), nullable=True, primary_key=True, autoincrement=True)
+    id_patient = db.Column(db.String(10), nullable=True, primary_key=True)
     name = db.Column(db.String(300), nullable=False)
     lastname = db.Column(db.String(30), nullable=False)
     phone = db.Column(db.String(12), nullable=False)
@@ -297,7 +298,11 @@ class Patient(db.Model):
                                           self.gender, self.weight,
                                           self.height, self.temperature,
                                           self.heart_rate)
+    def fullname(self):
+        return '{} {}'.format(self.name, self.lastname)
 
+    def contact(self):
+        return '{} {}'.format(self.name, self.lastname), self.phone
 
 
 

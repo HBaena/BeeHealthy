@@ -8,16 +8,16 @@
         #           Contacts
         # ---------------------------------------------
  -->
-        <div class="row"><h1>Patient panel</h1></div>   
+        <div class="row center"><h1>Doctor panel</h1></div>
         <div class="col s6">
             <div class="row s12" align="center">
-              <h2>Upcoming appointments</h2>
+              <h2>This week</h2>
             </div>
             <div class="row s12">
-                {% if unchecked != None %}
+                {% if this_week != None %}
                 <ul class="collapsible popout reminder transparent">
-                    {% for i, appoiment in unchecked %}
-                        {% with appoiment=appoiment, flag=False %}
+                    {% for i, _id, date, description, doctor, patient, phone in this_week %}
+                        {% with i=i, _id=_id, date=date, description=description, doctor=doctor, patient=patient, phone=phone, flag=False, flag_2=False %}
                             {% include 'appoiments.html'%}
                         {% endwith%}
                     {% endfor%}
@@ -40,13 +40,13 @@
 
         <div class="col s6">
             <div class="row s12" align="center">
-              <h2>Past appoiments</h2>
+              <h2>Next appoiments</h2>
             </div>
             <div class="row s12">
-                {% if checked != None %}
+                {% if later != None %}
                 <ul class="collapsible popout reminder transparent">
-                    {% for i, appoiment in checked %}
-                        {% with appoiment=appoiment, flag=False %}
+                    {% for i, _id, date, description, doctor, patient, phone in later %}
+                        {% with i=i, _id=_id, date=date, description=description, doctor=doctor, patient=patient, phone=phone, flag=False, flag_2=False %}
                             {% include 'appoiments.html'%}
                         {% endwith%}
                     {% endfor%}
@@ -62,5 +62,8 @@
         </div>
 
     </div>
+
+      
     {% include "modals-init.html" %}
+
     {% endblock %}  

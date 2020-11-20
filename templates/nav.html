@@ -12,24 +12,14 @@
           		<i class="material-icons left">home</i>
           	</a>
           </li>
-<!--           <li onclick="openModalOwn('profile');">
-            {% if user != None %}
-              <a>
-            {% else %}
-              <a href="{{ url_for('register') }}">
-            {% endif %}
-              {{ status_account }}
-              <i class="material-icons left">{{ icon_account }}</i>
-            </a>
-          </li>
- -->    
+        {% if not user%}
         <li>
-          	<a href="{{ url_for('patient') }}">          		
-           <!-- <a href="">              -->
+          <a href="{{ url_for('patient') }}">          		
             Patient
           	<i class="material-icons left">pregnant_woman</i>
         	</a>
         </li>
+        {% endif%}
         <li>
             <a href="{{ redirect_log }}">
               {{ status_log }}
