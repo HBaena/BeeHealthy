@@ -1,5 +1,5 @@
-<div class="modal" id="appoiment-form" style="height: 100%;">
-    <div class="modal-content" style="height: 100%;">
+<div class="modal" id="appoiment-form">
+    <div class="modal-content">
         <div class="row">
           <div class="col s10" align="center"><h3>Appoiment</h3></div>
           <div class="col s2"><i class="modal-close material-icons medium right">close</i></div>
@@ -9,9 +9,8 @@
 <!-- Paciente -->
 <div class="input-field col s12">
     <i class="material-icons prefix">person</i>
-    <select name="patient">
-    <option value="" disabled selected>Patient</option>
-    {% if patients != None %}
+    <select required="True" name="patient">
+        {% if patients != None %}
             {% for patient in patients %}
                 <option value="{{patient.id_patient}}">{{patient.id_patient}} - {{ patient.name }} {{ patient.lastname}} </option>
             {% endfor %}
@@ -22,20 +21,20 @@
 <!-- Description -->
 <div class="input-field col s12">
     <i class="material-icons prefix">description</i>
-    <textarea name="description" class="materialize-textarea"></textarea>
+    <textarea required="True" name="description" class="materialize-textarea"></textarea>
     <label for="description" data-error="wrong" data-success="succes">Content</label>
 </div>
 
 <!-- Doctor -->
 <div class="row">
-  <div class="input-field col s7  m3 offset-m1 4 offset-4">
+  <div class="input-field col s6  m3 offset-m1 4 offset-4">
     <i class="material-icons">person_outline</i>
     Doctor
-    <select name="doctor" id="doctor">
+    <select required="True" name ="doctor" id="doctor">
     <option value="Nobody" disabled selected>Por asignar</option>
     {% if doctors != None %}
             {% for doctor in doctors %}
-                <option value="{{doctor.title}}">{{doctor.title}}</option>
+                <option value="{{doctor.username}}">{{doctor.name}} {{ doctor.lastname }}</option>
             {% endfor %}
     {% endif %}
     </select>
@@ -46,16 +45,25 @@
     <i class="material-icons">today</i>
     Date
     <div class="card-reveal">
-    <input name="due-date-note" class="datepicker" style="wnameth: 100%">
+    <input required="True" name="date" class="datepicker" style="wnameth: 100%">
     </div>
   </div>
+
+  <div class="input-field col s5  m3 offset-m1 4 offset-4">
+    <i class="material-icons">today</i>
+    Date
+    <div class="card-reveal">
+    <input required="True" name="hour" class="timepicker" style="wnameth: 100%">
+    </div>
+  </div>
+
 </div>
 
 <div class="modal-footer">
-    <button class="waves-effect waves-red btn-flat red white-text">DONE</button>
+    <button class="waves-effect waves-red btn-flat white-text btn">Done</button>
 </div>
-<!-- <input type="hidden" name="doctor" id="doctor-out"> -->
- <!-- <input type="hidden" name="patient" id="patient-out">  -->
+<!-- <input required="True" type="hidden" name="doctor" id="doctor-out"> -->
+ <!-- <input required="True" type="hidden" name="patient" id="patient-out">  -->
 </form>
 </div>
 </div>

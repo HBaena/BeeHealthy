@@ -1,23 +1,30 @@
-
-
 {# BEGIN REMINDER #}
 <li>
-    <div class="collapsible-header {{ color_header }}" style="border-color: transparent;padding-top: 1px;">
+    {% if i%2 %}
+        <div class="collapsible-header header-odd" style="border-color: transparent;padding-top: 1px;">
+    {% else %}
+        <div class="collapsible-header header-even" style="border-color: transparent;padding-top: 1px;">
+    {% endif %}
         <div class="col s2" style="padding-top:20px;">
             <i class="material-icons large"> help_outline </i> 
         </div>
         <div class="col s10">
-            <h5>{{ title_header }}</h5>
+            <h5 class="truncate white-text">{{ contact.question }}</h5>
         </div>
     </div>
-    <div class="collapsible-body reminder-body {{ color_body }}">
+    {% if i%2 %}
+        <div class="collapsible-body body-odd white-text">
+    {% else %}
+        <div class="collapsible-body body-even   white-text">
+    {% endif %}
         <div class="divider"></div>
         <p class="flow-text" style="font-size: 22px;"> {{ contact.question }} </p>
             <div class="footer-copyright" style="padding-bottom: 35px;opacity: 1;">
-                <div class="col s9">{{ contact.name }}, {{ contact.phone }} </div>
-                <div class="col s10">{{ contact.email }}</div>            
+                <div class="col s4">{{ contact.phone }} </div>
+                <div class="col s8">{{ contact.email }}</div>            
+                <div class="col s10">{{ contact.name }}</div>
                 <div class="col s2">
-                    <a onclick="deleteNote('{{ contact.contact_id }}')" class="btn-floating red"><i class="material-icons">delete</i></a>
+                    <a onclick="deleteNote(' {{ contact.contact_id }}' )" class="btn-floating btn"><i class="material-icons">delete</i></a>
                 </div>
             </div>
 

@@ -4,24 +4,30 @@
   <script>
   var currYear = (new Date()).getFullYear();
   $(document).ready(function(){
-    
-
+// Initialize materialize
     $('select').formSelect();
     $('.tooltipped').tooltip();
- 
+    // $('.sidenav').sidenav();
+    $('.scrollspy').scrollSpy();
     $('.modal').modal({
    
         dismissible: true, // Modal cannot be closed by clicking anywhere outside
    
       });
     $(".datepicker").datepicker({
+      autoClose: true,
       defaultDate: (new Date()),
       // setDefaultDate: new Date(2000,01,31),
       maxDate: new Date(currYear+2,12,31),
       yearRange: [1928, currYear],
       format: "dd-mm-yyyy", 
-      container: 'body'
+      container: 'body',
     });
+    $('.timepicker').timepicker({
+        twelveHour: false,
+        autoClose: true
+    });
+
 // Validating tel
     phone = document.getElementById('phone-patient');
     $('#phone-patient').on('input',
@@ -39,9 +45,19 @@
     function () {
       // alert('Hello');
         if (! $.isNumeric($( this ).val())) {
-            phone.setCustomValidity("A number is needed");
+            phone_2.setCustomValidity("A number is needed");
         } else {
-            phone.setCustomValidity("");
+            phone_2.setCustomValidity("");
+        }
+      });
+
+    password = document.getElementById('password-1');
+    $('#password-1').on('input',
+    function () {
+        if ($( this ).val() != $('#password').val()) {
+            password.setCustomValidity("Passwords not match");
+        } else {
+            password.setCustomValidity("");
         }
       });
 
@@ -56,9 +72,36 @@
         $('#'+id_modal).modal('open');
     }
 
-    function onClickPatient(){
-      // alert($('#phone').value());
+
+      function deleteNote(id) {
+      var r = confirm('Do you want to delete this note?');
+      if (r == true) {
+        window.location.replace("{{url_for('remove_contact', contact_id='xxx')}}".replace('xxx',id));
+        // alert(note_id);
+      }
+      return;
+      // body...
     }
+      function deleteAppoiment(id) {
+      var r = confirm('Do you want to delete this appoiment?');
+      if (r == true) {
+        window.location.replace("{{url_for('remove_appoiment', appoiment_id='xxx')}}".replace('xxx',id));
+        // alert(note_id);
+      }
+      return;
+      // body...
+    }
+      function finishAppoiment(id) {
+      var r = confirm('Do you want to check this appoiment??');
+      if (r == true) {
+        window.location.replace("{{url_for('remove_appoiment', appoiment_id='xxx')}}".replace('xxx',id));
+        // alert(note_id);
+      }
+      return;
+      // body...
+    }
+
+
   </script>
 
 <!-- <script type="text/javascript">

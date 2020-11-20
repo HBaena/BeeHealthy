@@ -9,34 +9,35 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style-schedule.css') }}">
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style-schedule.css') }}"> -->
 </head>
 <body>
 {% include "nav.html" %}
+
 {% include "carousel.html"%}
   <div class="row" align="center">    
     <div class="col z-depth-2 card-panel small about-cards" align="center">
       <div class="row s12" align="center">
-        <i class="large material-icons">school</i>
+        <i class="large material-icons">supervisor_account</i>
       </div>
-      <h3 class="">School</h3>
-      <p class="flow-text">Most teachers will give students a syllabus that may or may not list the due dates of some projects. Whenever you know a date ahead of time, it is a good idea to have a planner. </p>
+      <h3 class="">Admins</h3>
+      <p class="flow-text">Control panel where the admin can add or remove Users (Doctors), Patients (semi-users), contact requests and appoiments. </p>
     </div>
 
     <div class="col z-depth-2 card-panel small about-cards" align="center">
       <div class="row s12" align="center">
-        <i class="large material-icons">access_alarm</i>
+        <i class="large material-icons">pregnant_woman</i>
       </div>
-      <h3 class="">Reminders</h3>
-      <p class="flow-text"> No matter how well you set up your todo list and calendar, you aren’t going to get things done unless you have a reliable way of reminding yourself to actually do them. </p>
+      <h3 class="">Patients</h3>
+      <p class="flow-text"> The patients who already have an account have the posibilty of monitoring the appoiment or make a request for a new appoiment. </p>
     </div>
 
     <div class="col z-depth-2 card-panel small about-cards" align="center">
       <div class="row s12" align="center">
-        <i class="large material-icons">schedule</i>
+        <i class="large material-icons">event</i>
       </div>
-      <h3 class="">Schedule</h3>
-      <p class="flow-text">Scheduling is the art of planning your activities so that you can achieve your goals and priorities in the time you have available. When it's done effectively.</p>
+      <h3 class="">Doctors</h3>
+      <p class="flow-text">Every doctor has it own account where can organize the appoiments and modify them.</p>
     </div>
 
   </div>

@@ -1,5 +1,5 @@
 from settings import db
-
+from sqlalchemy import desc, asc
 
 def send_email(email_in, email_out, text):
     pass
@@ -107,6 +107,33 @@ class Model:
 
     def read_contacts(self):
         return self.__session.query(Contact).all()
+
+    def delete_contact(self, contact):
+        self.__session.delete(contact)
+
+
+# ------------------------------------------------------------------------------------------------- #
+#                                             User                                                  #
+# ------------------------------------------------------------------------------------------------- #
+
+    def create_appoiment(self, id_doctor, id_patient, date, description, weight=0, height=0, temperature=0, heart_rate=0, done=False):
+        self.__session.add(Appointment(
+            username=id_doctor, id_patient=id_patient, date=date, 
+            description=description, weight=weight, height=height, 
+            temperature=temperature, heart_rate=heart_rate, done=done))
+        self.save_changes()
+
+    def read_appoiment(self, _filter):
+        return self.__session.query(Appointment).filter(_filter).first()
+
+    def read_appoiments(self, _filter=None):
+            return self.__session.query(Appointment).filter(_filter if not _filter else Appointment).all()
+
+    def read__all_appoiments(self):
+            return self.__session.query(Appointment).order_by(asc(Appointment.date)).all()
+
+    def delete_appoiment(self, appointment):
+        self.__session.delete(appointment)
 
 # ------------------------------------------------------------------------------------------------- #
 #                                             User                                                  #
@@ -240,7 +267,7 @@ class Appointment(db.Model):
     
 
     def __repr__(self):
-        return '{},{},{},{},{},{},{}'.format(self.id_appointment, self.date,
+        return '{},{},{},{},{},{},{}, {}, {}, {}|'.format(self.id_appointment, self.date,
                                             self.description, self.weight,
                                             self.height, self.temperature,
                                             self.heart_rate, self.done,
@@ -250,7 +277,7 @@ class Patient(db.Model):
     """docstring for Patient"""
 
     __tablename__ = "Patient"
-    id_patient = db.Column(db.String(10), nullable=True, primary_key=True)
+    id_patient = db.Column(db.String(10), nullable=True, primary_key=True, autoincrement=True)
     name = db.Column(db.String(300), nullable=False)
     lastname = db.Column(db.String(30), nullable=False)
     phone = db.Column(db.String(12), nullable=False)

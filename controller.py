@@ -1,5 +1,5 @@
 from settings import db
-from model import Model, InfoCodes, User, Patient
+from model import Model, InfoCodes, User, Patient, Appointment
 
 
 class Controller:
@@ -22,6 +22,38 @@ class Controller:
         self.model.save_changes()
 
 # ------------------------------------------------------------------------------------------------- #
+#                                        Appoiments                                                  #
+# ------------------------------------------------------------------------------------------------- #
+    def add_appoiment(self, id_doctor, id_patient, date, description):
+        self.model.create_appoiment(id_doctor, id_patient, date, description, weight=0, height=0, temperature=0, heart_rate=0, done=False)
+        return InfoCodes.SUCCESS
+
+    def get_appoiments(self, id_patient=None):
+        if id_patient:
+            return filter(lambda x: x.id_patient == id_patient, self.get_appoiments())
+        else:
+            return self.model.read__all_appoiments()
+
+    def get_appoiments_checked(self, id_patient=None):
+        if id_patient:
+            return filter(lambda x: x.done == True and x.id_patient == id_patient, self.get_appoiments())
+        else:
+            return filter(lambda x: x.done == True, self.get_appoiments())
+
+    def get_appoiments_unchecked(self, id_patient=None):
+        if id_patient:
+            return filter(lambda x: x.done == False and x.id_patient == id_patient, self.get_appoiments())
+        else:
+            return filter(lambda x: x.done == False, self.get_appoiments())
+
+    def get_appoiment(self, appoiment_id):
+        return self.model.read_appoiment(Appointment.id_appointment == appoiment_id)
+
+    def remove_appoiment(self, appoiment_id):
+        self.model.delete_contact(self.get_appoiment(appoiment_id))
+        return InfoCodes.SUCCESS
+
+# ------------------------------------------------------------------------------------------------- #
 #                                        Contacts                                                   #
 # ------------------------------------------------------------------------------------------------- #
     def request_contact(self, name, phone, email, question):
@@ -38,7 +70,7 @@ class Controller:
 #                                        Contacts                                                   #
 # ------------------------------------------------------------------------------------------------- #
     def add_patient(self, id_patient, name, lastname, phone, email, gender, weight=-1, height=-1, temperature=-1, heart_rate=-1):
-        if self.get_patient(id_patient):
+        if self.get_patient(email):
             return InfoCodes.ERROR
 
         self.model.create_patient(
@@ -51,8 +83,8 @@ class Controller:
 
         return InfoCodes.SUCCESS
 
-    def get_patient(self, id_patient):
-        response = self.model.read_patient(Patient.id_patient == id_patient)
+    def get_patient(self, email):
+        response = self.model.read_patient(Patient.email == email)
         if not response:
             return InfoCodes.ERROR
         else:
@@ -77,7 +109,7 @@ class Controller:
         # if self.model.read_user(username=username) or \
         #         self.model.read_user(email=email):
         if self.model.read_user((User.username == username)) or \
-                self.model.read_user((User.username == username) | (User.email == username)):
+                self.model.read_user((User.email == email)):
             return InfoCodes.USER_ALREADY_EXIST
         self.model.create_user(username, email, password, name, lastname, phone, speciality, workplace, doctor)
         return InfoCodes.SUCCESS

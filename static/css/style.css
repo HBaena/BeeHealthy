@@ -1,25 +1,27 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 html,
+
+
+
 body {
     height: 100%;
 }
 body {
-    background: #003754;
+    background: #f1f6f9;
 }
 nav {
     margin-top: 0px;
     margin-bottom: 35px;
 }
-.nav{background: #001a33;}
+.nav{background: #14274e;}
 
 
-.buttons
-{
-    background: #001a33;
-}   
+
+
 .form-page {
-   width: 430px;
+    background: #bbbfca;
+    width: 430px;
 }
 .home-page {
     width: 90%;
@@ -50,12 +52,24 @@ nav {
     font-size: 16px;
     width: 85%;
     border-radius: 5px;
-    background: #003754;
+    background: #394867;
 
 }
 .button:hover {
-    background: #001a33;
+    background: #14274e;
 }
+
+.btn, .accent-light{
+    background: #394867;
+}
+.btn:hover, .accent{
+    background: #14274e;
+
+}
+
+
+
+
 
 .about-cards{
     width: 27%;
@@ -63,6 +77,7 @@ nav {
     margin: 3.16%;
     padding: 40px; 
     align-items: center;
+    background: #bbbfca;
 }
 .card.horizontal {
     display: -webkit-flex;
@@ -96,9 +111,44 @@ border-style: none;
    opacity: 20%;
  
 } 
-/*[type="radio"]:not(:checked), [type="radio"]:checked {
-    position: relative;
-    left: 0px;
-    opacity: 1;
+
+.header-odd{
+    background: #0278ae;
 }
-*/
+
+.header-even{
+    background: #43658b;
+}
+.body-odd{
+    background: #51adcf;
+}
+
+.body-even{
+    background: #4e89ae;
+}
+
+h1,h2,h3,h4,h5, .tab
+{
+    color: #14274e;
+}
+
+.carousel-item{
+    background: #43658b;
+}
+#appoiment-form{
+    width: 40%;
+    height: 45%;
+}
+#doctor-form{
+    width: 45%;
+    height: 40%;
+}
+#patient-form{
+    width: 45%;
+    height: 45%;
+}
+.btn-floating-container {
+    position: relative;
+    height: 70px;
+    z-index: 99;
+}

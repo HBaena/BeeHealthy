@@ -1,0 +1,23 @@
+{% extends "base-materialize.html" %}
+{% block content %}
+{% include "nav.html" %}
+<div class="row center">
+  <img class="responsive-img" width="50%" src="{{ img }}">
+</div>
+  <div></div>
+<div class="row centered" style="width: 30%;" align="center">
+
+
+    {% if code %}
+        {{ msg }}
+        <div class="card-panel" style="width: 60%;margin-top: 30px; margin-bottom: 30px;">
+            {{ code }}
+        </div>
+    {% else %}
+        <div style="margin-top: 30px; margin-bottom: 30px;"></div>    
+    {% endif %}
+
+    <a style="font-size: 22px;" href="{{url_for('home')}}"> Go home</a>
+</div>
+
+{% endblock %}

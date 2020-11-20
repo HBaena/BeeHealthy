@@ -1,7 +1,12 @@
 {% extends "base-materialize.html" %}
 {% block content %}
 {% include "nav.html" %}
-<div class="card-panel image-error" align="center">
-  <img class="responsive-img" src="{{ url_for('static', filename='img/404-error.png') }}">
+<div class="row center">
+  <img href="{{url_for('home')}}" style="width: 60%;height: 10%;margin-top:10px;margin-right: 10px;text-align: center;" class="responsive-img center" src="{{ url_for('static', filename='img/404-error.png') }}">
 </div>
+
+<div class="row centered center">
+    <p class="margin medium-small "><a href="{{ url_for('home') }}">Go home!</a></p>
+</div>
+
 {% endblock %}

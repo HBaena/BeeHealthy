@@ -6,6 +6,11 @@ from controller import Controller
 from model import InfoCodes, MODAL_COLORS, Priorities
 from datetime import datetime
 # from unidecode import  unidecode
+# 
+# OOPS_IMG =  url_for('static', filename='img/error.png')
+# SUCCESS_IMG =  url_for('static', filename='img/success.png')
+# E404_IMG =  url_for('static', filename='img/404.png')
+# CONTACT_IMG =  url_for('static', filename='img/contact.png')
 
 controller = Controller()
 
@@ -22,10 +27,29 @@ controller = Controller()
 def define_contacts():
     response = controller.get_contacts()
     if response:
-        return zip(response,
+        return zip(range(len(response)), response,
                    [get_random_color() for _ in range(len(response))])
     else:
         return None
+
+def define_appoiments(patiente_id=None):
+    response = list(controller.get_appoiments_unchecked(patiente_id))
+    print('Hello')
+    print(response)
+    if response:
+        return zip(range(len(response)), response,
+                   [get_random_color() for _ in range(len(response))])
+    else:
+        return None
+
+def define_appoiments_c(patiente_id=None):
+    response = list(controller.get_appoiments_checked(patiente_id))
+    if response:
+        return zip(range(len(response)), response,
+                   [get_random_color() for _ in range(len(response))])
+    else:
+        return None
+
 
 def get_random_color():
     return choice(MODAL_COLORS)
@@ -97,16 +121,19 @@ def index():
 @app.route('/home')
 # @logged_args
 def home():
-    print(controller.get_patients())
+    print(list(controller.get_appoiments_unchecked('adhe294532')))
     if 'username' in session:
         # activities, days, init, end = define_schedule()
+        appoiments = define_appoiments()
         contacts = define_contacts()
-        appoiments = None
         patients = controller.get_patients()
+        doctors = controller.get_doctors()
         return render_this_page('home.html', 'HOME', 
             contacts=contacts,
             appoiments=appoiments,
-            patients=patients)
+            patients=patients,
+            doctors=doctors
+            )
     else:
         return redirect(url_for('index'))
 
@@ -127,8 +154,8 @@ def login():
         return render_this_page('login.html', 'LOGIN')
     else:
         if request.form:
-            email = request.form['email']
-            password = request.form['password']
+            email = request.form['email'].strip()
+            password = request.form['password'].strip()
             response = controller.login(email, password)
             if response == InfoCodes.USER_NOT_FOUND:
                 return render_this_page('login.html', 'LOGIN')
@@ -145,12 +172,12 @@ def register():
     if 'username' in session or request.method == 'GET':
         return render_this_page('register.html', 'REGISTER')
     elif request.method == 'POST':
-        username = request.form['username']
-        # name = request.form['name']
-        # lastname = request.form['lastname']
-        # phone = request.form['phone']
-        email = request.form['email']
-        password = request.form['password']
+        username = request.form['username'].strip()
+        # name = request.form['name'].strip()
+        # lastname = request.form['lastname'].strip()
+        # phone = request.form['phone'].strip()
+        email = request.form['email'].strip()
+        password = request.form['password'].strip()
         if not all([username, 
             # name, lastname, phone, 
             email, password]):
@@ -179,7 +206,15 @@ def patient():
     if request.method == 'GET':
         return render_this_page('patient.html', 'PATIENT')
     else:
-        return render_this_page('appointments.html', 'APPOINTMENTS', id=request.form['id'])
+        patient_id=request.form['id'].strip()
+        unchecked = list(controller.get_appoiments_unchecked(patient_id))
+        checked = list(controller.get_appoiments_checked(patient_id))    
+        print(list(controller.get_appoiments_unchecked(patient_id)))
+        print(checked)
+        return render_this_page('patient-panel.html', 'APPOINTMENTS', 
+            unchecked=zip(range(len(unchecked)), unchecked) if len(unchecked) else None, 
+            checked=zip(range(len(checked)), checked) if len(checked) else None
+            )
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -190,8 +225,8 @@ def contact():
         # print(request.form)
         # print('hello')
         
-        controller.request_contact(request.form['name'], request.form['phone'], 
-            request.form['email'], request.form['question'])
+        controller.request_contact(request.form['name'].strip(), request.form['phone'].strip(), 
+            request.form['email'].strip(), request.form['question'].strip())
         controller.save()
         return render_this_page('thanks.html', 'CONTACT')
 
@@ -205,55 +240,70 @@ def contact():
 @app.route('/add-patient', methods=['POST'])
 def add_patient():
     print(request.form)
-    # return redirect(url_for('home'))
-
-    name = request.form['name']
-    lastname = request.form['lastname']
-    gender = request.form['gender']
-    phone = request.form['phone']
-    email = request.form['email']
+    name = request.form['name'].strip()
+    lastname = request.form['lastname'].strip()
+    gender = request.form['gender'].strip()
+    phone = request.form['phone'].strip()
+    email = request.form['email'].strip()
     patient_id = patiente_id(name, lastname, phone)
     if not all((name, lastname, gender, phone, email)):
         print('NOPE')
-        return redirect(url_for('home'))
+        return render_this_page('error.html', 'UNSPECTED ERROR', img=url_for('static', filename='img/error.png'), msg=None, code=None)
+
     response = controller.add_patient(patient_id, name, lastname, phone, email, gender)
     if response == InfoCodes.SUCCESS:
         controller.save()
-        return redirect(url_for('home'))
+        return render_this_page('error.html', 'SUCCESS', img=url_for('static', filename='img/success.png'), msg='Remember this code it is personal and secret', code=patient_id)
     
-    return render_this_page('404.html', '404'), 404
+    return render_this_page('error.html', 'UNSPECTED ERROR', img=url_for('static', filename='img/error.png'), msg=None, code=None)
+    # return render_this_page('404.html', '404'), 404
 
 
 @app.route('/add-appoiment', methods=['POST'])
 def add_appoiment():
-    print('Add appoiment')
     print(request.form)
-    return redirect(url_for('home'))
+    patient = request.form['patient'].strip()
+    doctor = request.form['doctor'].strip()
+    description = request.form['description'].strip()
+    date = request.form['date'].strip()
+    hour = request.form['hour'].strip()
+    date = datetime.strptime(' '.join([date, hour]), '%d-%m-%Y %H:%M')
+    if controller.add_appoiment(doctor, patient, date, description) == InfoCodes.SUCCESS:
+        controller.save()
+        return render_this_page('error.html', 'SUCCESS', img=url_for('static', filename='img/success.png'), msg=None, code=None)
+
+
+    return render_this_page('error.html', 'Error', img=url_for('static', filename='img/user-email.png'), msg=None, code=None)
 
 @app.route('/add-doctor', methods=['POST'])
 def add_doctor():
-    # print(request.form)
-    print(request.form)
-    name = request.form['name']
-    lastname = request.form['lastname']
-    username = request.form['username']
-    password = request.form['password']
-    password_1 = request.form['password-1']
-    specialty = request.form['specialty']
-    description = request.form['description']
-    workplace = request.form['workplace']
-    phone = request.form['phone']
-    email = request.form['email']
+    name = request.form['name'].strip()
+    lastname = request.form['lastname'].strip()
+    username = request.form['username'].strip()
+    password = request.form['password'].strip()
+    password_1 = request.form['password-1'].strip()
+    specialty = request.form['specialty'].strip()
+    # description = request.form['description'].strip()
+    workplace = request.form['workplace'].strip()
+    phone = request.form['phone'].strip()
+    email = request.form['email'].strip()
     if not all((
             name, lastname, username, password, password_1, 
-            specialty, description, workplace, phone, email)):
-        return redirect(url_for('home'))
+            specialty, workplace, phone, email)):
+        print('Any null')
+        return render_this_page('error.html', 'WRONG PASSWORD', img=uDrl_for('static', filename='img/error.png'), msg=None, code=None)
     if password != password_1:
-        return redirect(url_for('home'))
+        print('Passwords not don\'t match')
+        return render_this_page('error.html', 'WRONG PASSWORD', img=uDrl_for('static', filename='img/error.png'), msg=None, code=None)
 
     response = controller.add_user(username, email, password, name, lastname, phone, specialty, workplace, True)
+    if response == InfoCodes.SUCCESS:
+        print('Added' )
+        controller.save()
+        return render_this_page('error.html', 'SUCCESS', img=url_for('static', filename='img/success-user.png'), msg=None, code=None)
+        # return redirect(url_for('home'))
 
-    return redirect(url_for('home'))
+    return render_this_page('error.html', 'Error', img=url_for('static', filename='img/user-email.png'), msg=None, code=None)
 
 # ------------------------------------------------------------------------------------------------- #
 
@@ -261,11 +311,23 @@ def add_doctor():
 #                                        Remove methods                                             #
 # ------------------------------------------------------------------------------------------------- #
 
-@app.route('/contact/remove/<string:title>')
-def remove_contact(title):
-    # print('Hello')
+@app.route('/contact/remove/<string:contact_id>')
+def remove_contact(contact_id):
+    print(contact_id)
+
     if 'username' in session:
-        if controller.remove_contact(title) == InfoCodes.SUCCESS:
+        if controller.remove_contact(contact_id) == InfoCodes.SUCCESS:
+            controller.save()
+            return redirect(url_for('home'))
+
+    return render_this_page('404.html', '404'), 404
+
+@app.route('/appoiment/remove/<string:appoiment_id>')
+def remove_appoiment(appoiment_id):
+    print(appoiment_id)
+
+    if 'username' in session:
+        if controller.remove_appoiment(app) == InfoCodes.SUCCESS:
             controller.save()
             return redirect(url_for('home'))
 
@@ -284,6 +346,11 @@ def about():
 @app.errorhandler(404)
 def error_404(e):
     return render_this_page('404.html', '404'), 404
+
+@app.route('/message')
+def error_page(title, img):
+    return render_this_page('error.html', title, img)
+
 
 @app.route('/test')
 def test():
