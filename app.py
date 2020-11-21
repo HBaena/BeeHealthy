@@ -109,7 +109,7 @@ def patiente_id(name, lastname, phone):
 @app.route('/')
 @app.route('/index')
 def index():
-    print(controller.get_roots())
+    # print(controller.get_roots())
 
     response = controller.add_user('root', 'root@gmail.com', 'rootroot', 'Adán', 'Hernández Baena','4615932940', 
         'Secretary', 'Reception 1', False)

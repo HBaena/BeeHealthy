@@ -168,6 +168,7 @@ class Model:
             speciality=speciality, workplace=workplace, doctor=doctor))
 
     def read_user(self, _filter):
+        print('Hello')
         return self.__session.query(User).filter(_filter).first()
 
 
@@ -232,7 +233,7 @@ class User(db.Model):
     name = db.Column(db.String(30), nullable=False)
     lastname = db.Column(db.String(30), nullable=False)
     phone = db.Column(db.String(12), nullable=True)
-    speciality = db.Column(db.Text(length=None), nullable=False)
+    speciality = db.Column(db.String(30), nullable=False)
     workplace = db.Column(db.String(20), nullable=True)
     doctor = db.Column(db.Boolean(),nullable=True)
     # db.relationship must      be in the parent table
@@ -264,7 +265,7 @@ class Appointment(db.Model):
     done = db.Column(db.Boolean(), nullable=False)
     username = db.Column(db.String(30),db.ForeignKey(
                'User.username'),nullable=False )
-    id_patient = db.Column(db.Integer,db.ForeignKey(
+    id_patient = db.Column(db.String(10),db.ForeignKey(
                'Patient.id_patient'),nullable=False )
     
     def __repr__(self):

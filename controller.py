@@ -107,8 +107,6 @@ class Controller:
 
 
     def add_user(self, username, email, password, name, lastname, phone, speciality='Secretary', workplace='Seception', doctor=False):
-        # if self.model.read_user(username=username) or \
-        #         self.model.read_user(email=email):
         if self.model.read_user((User.username == username)) or \
                 self.model.read_user((User.email == email)):
             return InfoCodes.USER_ALREADY_EXIST
